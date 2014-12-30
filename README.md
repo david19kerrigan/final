@@ -13,3 +13,6 @@ Started the base code.<br>
 -able press 1 or 0 to switch between units <br>
 *** speed still not constant
 
+--Wait time for creating a unit.<br>
+--Gold decreases upon creating a unit.<br>
+
