@@ -13,6 +13,12 @@ float v1x=100; //unit1's x and y
 float v1y=100;
 boolean unit0=true; //indicates if unit0 seleceted to be moved
 boolean unit1=false; //indicates if unit1 seleceted to be moved
+int time = 0;
+int wait = 1000;
+boolean timer;
+int a;
+int gold = 10;
+boolean cGold;
 
 //This gets run once at the beginning of the program
 void setup(){
@@ -23,6 +29,8 @@ void setup(){
   rect(25,25,50,50);
   rect(25,550,50,50);
   smooth();
+  a = millis();
+  
   
 }
 
@@ -36,8 +44,12 @@ void draw(){
   fill(0);
   rect(25,25,50,50);
   rect(25,575,50,50);
+  textSize(32);
+  fill(0,102,153);
+  text("unit", 0,550);
+  
   //Sequence for moving the vector around and creating a n
-  //ew unit on clicking on the bottom left rect
+  //ew unit on clicking on the bottom left 
   if (key=='0' && v0){
      unit0=true;
      unit1=false;
@@ -51,7 +63,11 @@ void draw(){
     if((mouseX<=50)&&(mouseY>=550)){
       stroke(0);
       fill(175);
-      v1 = true;
+      println("b");
+      time = millis();
+      timer = true;
+      cGold=false;
+      
     }
     else{
     if (unit0){
@@ -80,6 +96,15 @@ void draw(){
       yspeed = 0;
     }
   }
+  if((millis() - time >= wait) && timer==true){
+    println(millis()+" "+time+" "+wait);
+    v1 = true;
+    if(cGold == false){
+      gold = gold -1;
+      cGold = true;
+    }
+    
+  }
   if (v0){
     stroke(0);
     fill(175);
@@ -99,5 +124,6 @@ void draw(){
     }
   }
    
-  
+  println(a);
+  text("Gold: "+gold,100,590);
 }
