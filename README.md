@@ -16,3 +16,6 @@ Started the base code.<br>
 --Wait time for creating a unit.<br>
 --Gold decreases upon creating a unit.<br>
 
+30Dec14<br>
+-Threw in a bunch of code to do combat<br>
+
