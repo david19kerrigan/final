@@ -23,4 +23,4 @@ Started the base code.<br>
 *note* going to need to make multiple posx and posy for each unit so each can do stuff while user controls other units<br>
 -extended code to allow to make max of 10 units
 -BUG--when creating a unit, creates all 10
-
+<br>-revert code and implement classes in the file "gogoclasses_java"
