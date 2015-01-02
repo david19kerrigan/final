@@ -67,6 +67,7 @@ boolean timer;
 int a;
 int gold = 10;
 boolean cGold;
+boolean test;
 
 //This gets run once at the beginning of the program
 void setup() {
@@ -343,36 +344,48 @@ void draw() {
   }
   if ((millis() - time >= wait) && timer==true) {
     println(millis()+" "+time+" "+wait);
+    test=true;
+    while(test){
     if (!v0){
       v0=true;
+      test=false;
     }
     else if (!v1){
       v1=true;
+      test=false;
     }
     else if (!v2){
       v2=true;
+      test=false;
     }
-    /*else if (!v3){
+    else if (!v3){
       v3=true;
+      test=false;
     }
     else if (!v4){
       v4=true;
+      test=false;
     }
     else if (!v5){
       v5=true;
+      test=false;
     }
     else if (!v6){
       v6=true;
+      test=false;
     }
     else if (!v7){
       v7=true;
+      test=false;
     }
     else if (!v8){
       v8=true;
+      test=false;
     }
     else if (!v9){
       v9=true;
-    }*/
+      test=false;
+    }}
     if (cGold == false) {
       gold = gold -1;
       cGold = true;

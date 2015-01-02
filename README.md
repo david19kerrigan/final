@@ -24,3 +24,10 @@ Started the base code.<br>
 -extended code to allow to make max of 10 units
 -BUG--when creating a unit, creates all 10
 <br>-revert code and implement classes in the file "gogoclasses_java"
+
+<br>
+1 Jan 15 <br>
+-made mx and my variable for class allowing each unit to have own<br>
+-made possible for other units to continue moving if another unit selected<br>
+-BUG unit that continues to move while not selected will not stop. must fix <br>
+*note* need to readd code for max 10 units

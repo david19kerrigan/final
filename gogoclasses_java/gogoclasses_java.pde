@@ -75,18 +75,23 @@ void draw(){
     }
     
     }
-    mx = mouseX;
-    my = mouseY;
-    
+    if (unit0){
+     myUnit.setmx(mouseX);
+     myUnit.setmy(mouseY);
+    }
+    if (unit1){
+     myUnit1.setmx(mouseX);
+     myUnit1.setmy(mouseY); 
+    }
   }
   if (unit0){
-    if((myUnit.getX()>=mx-1 && myUnit.getX()<=mx+1) && (myUnit.getY()>=my-1 && myUnit.getY()<=my+1)){
+    if((myUnit.getX()>=myUnit.getmx()-1 && myUnit.getX()<=myUnit.getmx()+1) && (myUnit.getY()>=myUnit.getmy()-1 && myUnit.getY()<=myUnit.getmy()+1)){
       myUnit.setXSpeed(0);
       myUnit.setYSpeed(0);
     }
   }
   else if (unit1){
-    if((myUnit1.getX()>=mx-1 && myUnit1.getX()<=mx+1) && (myUnit1.getY()>=my-1 && myUnit1.getY()<=my+1)){
+    if((myUnit1.getX()>=myUnit1.getmx()-1 && myUnit1.getX()<=myUnit1.getmx()+1) && (myUnit1.getY()>=myUnit1.getmy()-1 && myUnit1.getY()<=myUnit1.getmy()+1)){
       myUnit1.setXSpeed(0);
       myUnit1.setYSpeed(0);
     }
@@ -104,20 +109,20 @@ void draw(){
   if (v0){
     stroke(0);
     fill(175);
-    
-    if (unit0){
+    myUnit.move();
+    /*if (unit0){
        myUnit.move();
-    }
+    }*/
     myUnit.display();
   }
   if (v1){
     stroke(0);
     fill(175);
-    
-    if (unit1){
+    myUnit1.move();
+    /*if (unit1){
       myUnit1.move();
      
-    }
+    }*/
     myUnit1.display();
     
   }
@@ -132,6 +137,8 @@ class friendlyUnit{
   float ypos;
   float xspeed;
   float yspeed;
+  float mx;
+  float my;
   int health;
   friendlyUnit(float x,float y,float xs,float ys){
     xpos = x;
@@ -158,6 +165,12 @@ class friendlyUnit{
   float getYSpeed(){
     return yspeed;
   }
+  float getmx(){
+    return mx;
+  }
+  float getmy(){
+    return my;
+  }
   void setXSpeed(float speed){
     xspeed = speed;
     
@@ -167,6 +180,12 @@ class friendlyUnit{
   }
   void changeHealth(int h){
     health = health + h;
+  }
+  void setmx(float positionx){
+    mx=positionx;
+  }
+  void setmy(float positiony){
+    my=positiony;
   }  
 }
 
@@ -175,6 +194,8 @@ class enemyUnit{
   float ypos;
   float xspeed;
   float yspeed;
+  float mx;
+  float my;
   int health;
   
   enemyUnit(float x, float y){
@@ -205,12 +226,24 @@ class enemyUnit{
   float getYSpeed(){
     return yspeed;
   }
+  float getmx(){
+    return mx;
+  }
+  float getyx(){
+    return my;
+  }
   void setXSpeed(float speed){
     xspeed = speed;
     
   }
   void setYSpeed(float speed2){
     yspeed = speed2;
+  }
+  void setmx(int positionx){
+    mx=positionx;
+  }
+  void setmy(int positiony){
+    my=positiony;
   }
 }
 
