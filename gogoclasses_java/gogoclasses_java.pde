@@ -64,33 +64,36 @@ void draw(){
     }
     else{
     if (unit0){
-    myUnit.setXSpeed((mouseX-myUnit.getX())/100);
-    myUnit.setYSpeed((mouseY-myUnit.getY())/100);
+    myUnit.setmx(mouseX);
+    myUnit.setmy(mouseY);
+    myUnit.setXSpeed((myUnit.getmx()-myUnit.getX())/100);
+    myUnit.setYSpeed((myUnit.getmy()-myUnit.getY())/100);
     }
     if (unit1){
-        
-      myUnit1.setXSpeed((mouseX-myUnit1.getX())/100);
-      myUnit1.setYSpeed((mouseY-myUnit1.getY())/100);
+      myUnit1.setmx(mouseX); //look below
+      myUnit1.setmy(mouseY);   
+      myUnit1.setXSpeed((myUnit1.getmx()-myUnit1.getX())/100);
+      myUnit1.setYSpeed((myUnit1.getmy()-myUnit1.getY())/100);
       
     }
     
     }
-    if (unit0){
+    /*if (unit0){
      myUnit.setmx(mouseX);
      myUnit.setmy(mouseY);
     }
     if (unit1){
      myUnit1.setmx(mouseX);
      myUnit1.setmy(mouseY); 
-    }
+    }*/
   }
-  if (unit0){
+  if (v0){
     if((myUnit.getX()>=myUnit.getmx()-1 && myUnit.getX()<=myUnit.getmx()+1) && (myUnit.getY()>=myUnit.getmy()-1 && myUnit.getY()<=myUnit.getmy()+1)){
       myUnit.setXSpeed(0);
       myUnit.setYSpeed(0);
     }
   }
-  else if (unit1){
+  if (v1){
     if((myUnit1.getX()>=myUnit1.getmx()-1 && myUnit1.getX()<=myUnit1.getmx()+1) && (myUnit1.getY()>=myUnit1.getmy()-1 && myUnit1.getY()<=myUnit1.getmy()+1)){
       myUnit1.setXSpeed(0);
       myUnit1.setYSpeed(0);
