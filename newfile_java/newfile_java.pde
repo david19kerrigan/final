@@ -52,12 +52,12 @@ void draw(){
   //Sequence for moving the vector around and creating a n
   //ew unit on clicking on the bottom left rect
   if (key=='0' && friendlies.get(0).isAlive()){
-     unit0=true;
-     unit1=false;
+     myUnit.changeSelected(true);
+     myUnit1.changeSelected(false);
   }
   if (key=='1' && friendlies.get(1).isAlive()){
-      unit0=false;
-      unit1=true;
+      myUnit.changeSelected(false);
+      myUnit1.changeSelected(true);
   }
   if (mousePressed){
     
@@ -70,48 +70,27 @@ void draw(){
       
     }
     else{
-    if (unit0){
-    myUnit.setmx(mouseX);
-    myUnit.setmy(mouseY);
-    myUnit.setXSpeed((myUnit.getmx()-myUnit.getX())/100);
-    myUnit.setYSpeed((myUnit.getmy()-myUnit.getY())/100);
-    }
-    if (unit1){
-      myUnit1.setmx(mouseX); //look below
-      myUnit1.setmy(mouseY);   
-      myUnit1.setXSpeed((myUnit1.getmx()-myUnit1.getX())/100);
-      myUnit1.setYSpeed((myUnit1.getmy()-myUnit1.getY())/100);
+    for(int i = 0; i < friendlies.size(); i++){
+     if(friendlies.get(i).isSelected()){
+       friendlies.get(i).setmx(mouseX);
+       friendlies.get(i).setmy(mouseY);
+       
+       friendlies.get(i).setXSpeed((friendlies.get(i).getmx()-friendlies.get(i).getX())/100);
+       friendlies.get(i).setYSpeed((friendlies.get(i).getmy()-friendlies.get(i).getY())/100);
       
-    }
+      }
     
     }
-    /*if (unit0){
-     myUnit.setmx(mouseX);
-     myUnit.setmy(mouseY);
-    }
-    if (unit1){
-     myUnit1.setmx(mouseX);
-     myUnit1.setmy(mouseY); 
-    }*/
-  }
-<<<<<<< HEAD:newfile_java/newfile_java.pde
-  if (myUnit.isAlive()){
-=======
-  if (v0){
->>>>>>> 92bbb7c81ab2585e3d7a3f785acaf0b8fb476453:gogoclasses_java/gogoclasses_java.pde
-    if((myUnit.getX()>=myUnit.getmx()-1 && myUnit.getX()<=myUnit.getmx()+1) && (myUnit.getY()>=myUnit.getmy()-1 && myUnit.getY()<=myUnit.getmy()+1)){
-      myUnit.setXSpeed(0);
-      myUnit.setYSpeed(0);
     }
   }
-<<<<<<< HEAD:newfile_java/newfile_java.pde
-  if (myUnit1.isAlive()){
-=======
-  if (v1){
->>>>>>> 92bbb7c81ab2585e3d7a3f785acaf0b8fb476453:gogoclasses_java/gogoclasses_java.pde
-    if((myUnit1.getX()>=myUnit1.getmx()-1 && myUnit1.getX()<=myUnit1.getmx()+1) && (myUnit1.getY()>=myUnit1.getmy()-1 && myUnit1.getY()<=myUnit1.getmy()+1)){
-      myUnit1.setXSpeed(0);
-      myUnit1.setYSpeed(0);
+  
+  
+  for(int i = 0; i < friendlies.size(); i++){
+    if(friendlies.get(i).isAlive()){
+      if((friendlies.get(i).getX()>=friendlies.get(i).getmx()-1 && friendlies.get(i).getX()<=friendlies.get(i).getmx()+1) && (friendlies.get(i).getY()>=friendlies.get(i).getmy()-1 && friendlies.get(i).getY()<=friendlies.get(i).getmy()+1)){
+        friendlies.get(i).setXSpeed(0);
+        friendlies.get(i).setYSpeed(0);
+      }
     }
   }
   if ((millis() - time >= wait) && timer==true) {
@@ -150,6 +129,7 @@ class friendlyUnit{
   float my;
   int health;
   boolean alive;
+  boolean isSelected;
   friendlyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
@@ -159,6 +139,12 @@ class friendlyUnit{
   }
   boolean isAlive(){
     return alive;
+  }
+  void changeSelected(boolean s){
+    isSelected = s;
+  }
+  boolean isSelected(){
+    return isSelected;
   }
   void setAlive(boolean a){
     alive = a;
