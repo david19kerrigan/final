@@ -20,9 +20,12 @@ ArrayList<friendlyUnit> friendlies = new ArrayList<friendlyUnit>();
 
 //This gets run once at the beginning of the program
 void setup(){
+  size(800,600,P2D);
+  println(friendlies.size());
   friendlies.add(myUnit = new friendlyUnit(200,200,0,0,true)); 
   friendlies.add(myUnit1 = new friendlyUnit(200,200,0,0,false));
-  size(800,600,P2D);
+  println(friendlies.size());
+  
   rectMode(CENTER);
   stroke(0);
   fill(0);
@@ -88,13 +91,13 @@ void draw(){
      myUnit1.setmy(mouseY); 
     }
   }
-  if (unit0){
+  if (myUnit.isAlive()){
     if((myUnit.getX()>=myUnit.getmx()-1 && myUnit.getX()<=myUnit.getmx()+1) && (myUnit.getY()>=myUnit.getmy()-1 && myUnit.getY()<=myUnit.getmy()+1)){
       myUnit.setXSpeed(0);
       myUnit.setYSpeed(0);
     }
   }
-  else if (unit1){
+  if (myUnit1.isAlive()){
     if((myUnit1.getX()>=myUnit1.getmx()-1 && myUnit1.getX()<=myUnit1.getmx()+1) && (myUnit1.getY()>=myUnit1.getmy()-1 && myUnit1.getY()<=myUnit1.getmy()+1)){
       myUnit1.setXSpeed(0);
       myUnit1.setYSpeed(0);
@@ -111,9 +114,9 @@ void draw(){
     }
   }
   for(int i = 0; i < friendlies.size(); i++){
-    print(friendlies.get(i).isAlive());
+   
     if(friendlies.get(i).isAlive()){
-      print("a");
+      
       stroke(0);
       fill(175);
       friendlies.get(i).move();
