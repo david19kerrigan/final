@@ -71,33 +71,44 @@ void draw(){
     }
     else{
     if (unit0){
-    myUnit.setXSpeed((mouseX-myUnit.getX())/100);
-    myUnit.setYSpeed((mouseY-myUnit.getY())/100);
+    myUnit.setmx(mouseX);
+    myUnit.setmy(mouseY);
+    myUnit.setXSpeed((myUnit.getmx()-myUnit.getX())/100);
+    myUnit.setYSpeed((myUnit.getmy()-myUnit.getY())/100);
     }
     if (unit1){
-        
-      myUnit1.setXSpeed((mouseX-myUnit1.getX())/100);
-      myUnit1.setYSpeed((mouseY-myUnit1.getY())/100);
+      myUnit1.setmx(mouseX); //look below
+      myUnit1.setmy(mouseY);   
+      myUnit1.setXSpeed((myUnit1.getmx()-myUnit1.getX())/100);
+      myUnit1.setYSpeed((myUnit1.getmy()-myUnit1.getY())/100);
       
     }
     
     }
-    if (unit0){
+    /*if (unit0){
      myUnit.setmx(mouseX);
      myUnit.setmy(mouseY);
     }
     if (unit1){
      myUnit1.setmx(mouseX);
      myUnit1.setmy(mouseY); 
-    }
+    }*/
   }
+<<<<<<< HEAD:newfile_java/newfile_java.pde
   if (myUnit.isAlive()){
+=======
+  if (v0){
+>>>>>>> 92bbb7c81ab2585e3d7a3f785acaf0b8fb476453:gogoclasses_java/gogoclasses_java.pde
     if((myUnit.getX()>=myUnit.getmx()-1 && myUnit.getX()<=myUnit.getmx()+1) && (myUnit.getY()>=myUnit.getmy()-1 && myUnit.getY()<=myUnit.getmy()+1)){
       myUnit.setXSpeed(0);
       myUnit.setYSpeed(0);
     }
   }
+<<<<<<< HEAD:newfile_java/newfile_java.pde
   if (myUnit1.isAlive()){
+=======
+  if (v1){
+>>>>>>> 92bbb7c81ab2585e3d7a3f785acaf0b8fb476453:gogoclasses_java/gogoclasses_java.pde
     if((myUnit1.getX()>=myUnit1.getmx()-1 && myUnit1.getX()<=myUnit1.getmx()+1) && (myUnit1.getY()>=myUnit1.getmy()-1 && myUnit1.getY()<=myUnit1.getmy()+1)){
       myUnit1.setXSpeed(0);
       myUnit1.setYSpeed(0);
