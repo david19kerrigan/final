@@ -2,7 +2,7 @@
 PShape square;
 friendlyUnit myUnit;
 friendlyUnit myUnit1;
-enemyUnit enemyUnit0;
+enemyUnit enemyUnit;
 PShape unit;
 
 float mx;
@@ -16,16 +16,14 @@ int gold = 10;
 boolean cGold;
 int a;
 ArrayList<friendlyUnit> friendlies = new ArrayList<friendlyUnit>();
-
+ArrayList<enemyUnit> enemies = new ArrayList<enemyUnit>();
 
 //This gets run once at the beginning of the program
 void setup(){
   size(800,600,P2D);
-  println(friendlies.size());
   friendlies.add(myUnit = new friendlyUnit(200,200,0,0,true)); 
   friendlies.add(myUnit1 = new friendlyUnit(200,200,0,0,false));
-  println(friendlies.size());
-  
+  enemies.add(enemyUnit = new enemyUnit(400,400,0,0,true));
   rectMode(CENTER);
   stroke(0);
   fill(0);
@@ -113,10 +111,32 @@ void draw(){
       friendlies.get(i).display();
     }
   }
+  for (int i =0; i<enemies.size();i++){
+    if(enemies.get(i).isAlive()){
+        stroke(0);
+        fill(72);
+        enemies.get(i).move();
+        enemies.get(i).display();
+    }
+  }
    
    
   text("Gold: "+gold, 100, 590);
   
+
+
+
+
+
+}
+
+boolean checkCollision(friendlyUnit f, enemyUnit e){
+  if(Math.abs(f.getX()-e.getX()) < 11 && Math.abs(f.getY()-e.getY()) < 11){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 
@@ -201,9 +221,12 @@ class enemyUnit{
   float my;
   int health;
   boolean alive;
-  enemyUnit(float x, float y){
+  enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
+    xs = xspeed;
+    ys= yspeed;
+    alive = a;
   }
   
   boolean isAlive(){

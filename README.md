@@ -31,3 +31,7 @@ Started the base code.<br>
 -made possible for other units to continue moving if another unit selected<br>
 -BUG unit that continues to move while not selected will not stop. must fix <br>
 *note* need to readd code for max 10 units
+<br>
+6 Jan 15<br>
+Implement more class stuff to make code more efficient<br>
+Started on combat<br>
