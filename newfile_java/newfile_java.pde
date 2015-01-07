@@ -129,17 +129,18 @@ void draw(){
         if(ttime == 0){
           ttime = millis();
         }
-        if((millis()-ttime)%1000==0){
+        if((millis()-ttime)>1000){
           
           friendlies.get(j).changeHealth(friendlies.get(j).getHealth()-1);
           enemies.get(i).changeHealth(friendlies.get(i).getHealth()-1);
+          ttime=0;
         }
       }
-      ttime = 0;
+      //ttime = 0; 
     }
   }
    
-   
+  
   text("Gold: "+gold, 100, 590);
   
   textSize(14);
