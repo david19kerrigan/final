@@ -11,6 +11,7 @@ boolean unit0=true; //indicates if unit0 seleceted to be moved
 boolean unit1=false; //indicates if unit1 seleceted to be moved
 int time = 0;
 int wait = 1000;
+int ttime = 0;
 boolean timer;
 int gold = 10;
 boolean cGold;
@@ -26,6 +27,7 @@ void setup(){
   enemies.add(enemyUnit = new enemyUnit(400,400,0,0,true));
   myUnit.changeSelected(true);
   rectMode(CENTER);
+  myUnit.changeSelected(true);
   stroke(0);
   fill(0);
   rect(25,25,50,50);
@@ -120,19 +122,44 @@ void draw(){
         enemies.get(i).display();
     }
   }
+  
+  for(int i = 0; i < enemies.size(); i++){
+    for(int j = 0; j < friendlies.size(); j++){
+      if(checkCollision(friendlies.get(j),enemies.get(i))){
+        if(ttime == 0){
+          ttime = millis();
+        }
+        if((millis()-ttime)%1000==0){
+          
+          friendlies.get(j).changeHealth(friendlies.get(j).getHealth()-1);
+          enemies.get(i).changeHealth(friendlies.get(i).getHealth()-1);
+        }
+      }
+      ttime = 0;
+    }
+  }
    
    
   text("Gold: "+gold, 100, 590);
   
-
-
+  textSize(14);
+  for(int i = 0; i < friendlies.size(); i++){
+    if(friendlies.get(i).isAlive()){
+      text("Health "+friendlies.get(i).getHealth(),friendlies.get(i).getX(),friendlies.get(i).getY()+30);
+    }
+  }
+  for(int i = 0; i < enemies.size(); i++){
+    if(enemies.get(i).isAlive()){
+      text("Health "+enemies.get(i).getHealth(),enemies.get(i).getX(),enemies.get(i).getY()+30);
+    }
+  }
 
 
 
 }
 
 boolean checkCollision(friendlyUnit f, enemyUnit e){
-  if(Math.abs(f.getX()-e.getX()) < 11 && Math.abs(f.getY()-e.getY()) < 11){
+  if(Math.abs(f.getX()-e.getX()) < 11 && Math.abs(f.getY()-e.getY()) < 121){
     return true;
   }
   else{
@@ -157,6 +184,9 @@ class friendlyUnit{
     xs = xspeed;
     ys= yspeed;
     alive = a;
+  }
+  int getHealth(){
+    return health;
   }
   boolean isAlive(){
     return alive;
@@ -233,7 +263,9 @@ class enemyUnit{
   boolean isAlive(){
     return alive;
   }
-  
+  int getHealth(){
+    return health;
+  }
   void move(){
     xpos = xpos + xspeed;
     ypos = ypos + yspeed;
