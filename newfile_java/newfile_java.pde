@@ -24,6 +24,7 @@ void setup(){
   friendlies.add(myUnit = new friendlyUnit(200,200,0,0,true)); 
   friendlies.add(myUnit1 = new friendlyUnit(200,200,0,0,false));
   enemies.add(enemyUnit = new enemyUnit(400,400,0,0,true));
+  myUnit.changeSelected(true);
   rectMode(CENTER);
   stroke(0);
   fill(0);
