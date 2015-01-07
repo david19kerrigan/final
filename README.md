@@ -35,3 +35,6 @@ Started the base code.<br>
 6 Jan 15<br>
 Implement more class stuff to make code more efficient<br>
 Started on combat<br>
+7Jan15<br>
+Tried to finish combat<br>
+Health above units<br>
