@@ -63,6 +63,7 @@ void draw(){
   fill(0);
   rect(25,25,50,50);
   rect(25,575,50,50);
+  rect(775,525,50,50);
   textSize(32);
   fill(0, 102, 153);
   text("unit", 0, 550);
@@ -202,12 +203,16 @@ void draw(){
     if (cGold == false) {
       gold = gold -1;
       cGold = true;
-      for(int i=0; i<friendlies.size(); i++){
-         if(!friendlies.get(i).isAlive()){
-           friendlies.get(i).setAlive(true);
-           break;
+      if(gold>0){
+        
+        for(int i=0; i<friendlies.size(); i++){
+           if(!friendlies.get(i).isAlive()){
+             friendlies.get(i).setAlive(true);
+             break;
          }
+        }
       }
+      
     }
   }
   for(int i = 0; i < friendlies.size(); i++){
