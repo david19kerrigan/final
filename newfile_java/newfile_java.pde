@@ -12,7 +12,7 @@ friendlyUnit myUnit8;
 friendlyUnit myUnit9;
 enemyUnit enemyUnit;
 PShape unit;
-
+int damageT = 0;
 float mx;
 float my;
 //boolean unit0=true; //indicates if unit0 seleceted to be moved
@@ -242,16 +242,36 @@ void draw(){
         }
         if((millis()-ttime)>1000){
           
-          friendlies.get(j).changeHealth(-1);
-          enemies.get(i).changeHealth(-1);
+          damageT = damageT - 1;
           ttime=0;
         }
       }
       //ttime = 0; 
     }
+    enemies.get(i).changeHealth(damageT);
+    damageT = 0;
   }
-   
   
+  for(int i = 0; i < friendlies.size(); i++){
+    for(int j = 0; j < enemies.size(); j++){
+      if(checkCollision(friendlies.get(i),enemies.get(j))){
+        print(ttime);
+        if(ttime == 0){
+          print("b");
+          ttime = millis();
+        }
+        println(ttime);
+        if((millis()-ttime)>1000){
+          print("c");
+          damageT = damageT - 1;
+          ttime=0;
+        }
+      }
+      
+    }
+    friendlies.get(i).changeHealth(damageT);
+    damageT = 0;
+  }
   text("Gold: "+gold, 100, 590);
   
   textSize(14);
