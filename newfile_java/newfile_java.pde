@@ -21,11 +21,15 @@ int time = 0;
 int wait = 1000;
 int ttime = 0;
 boolean timer;
-int gold = 10;
+int gold = 15;
 boolean cGold;
 int a;
 ArrayList<friendlyUnit> friendlies = new ArrayList<friendlyUnit>();
 ArrayList<enemyUnit> enemies = new ArrayList<enemyUnit>();
+//ArrayList<friendlyUnit> friendnear; 
+//ArrayList<friendlyUnit> nearbyfriend = new ArrayList<friendlyUnit>();
+//ArrayList<enemyUnit> nearbyenemy = new ArrayList<enemyUnit>();
+
 
 //This gets run once at the beginning of the program
 void setup(){
@@ -41,6 +45,8 @@ void setup(){
   friendlies.add(myUnit8 = new friendlyUnit(200,200,0,0,false));
   friendlies.add(myUnit9 = new friendlyUnit(200,200,0,0,false));
   enemies.add(enemyUnit = new enemyUnit(400,400,0,0,true));
+  enemies.add(enemyUnit = new enemyUnit(300,400,0,0,true));
+  
   myUnit.changeSelected(true);
   rectMode(CENTER);
   myUnit.changeSelected(true);
@@ -210,6 +216,7 @@ void draw(){
              friendlies.get(i).setAlive(true);
              break;
          }
+         //break;
         }
       }
       
@@ -241,9 +248,10 @@ void draw(){
           ttime = millis();
         }
         if((millis()-ttime)>1000){
-          
-          friendlies.get(j).changeHealth(-1);
-          enemies.get(i).changeHealth(-1);
+          enemies.get(i).attackfriendly(friendlies.get(i));
+          //friendlies.get(j).changeHealth(enemies.get(i).getAttack());
+          //enemies.get(i).changeHealth(friendlies.get(j).getAttack());
+          friendlies.get(j).attackenemy(enemies.get(i));
           ttime=0;
         }
       }
@@ -286,6 +294,8 @@ boolean checkCollision(friendlyUnit f, enemyUnit e){
 }
 
 
+
+
 class friendlyUnit{
   float xpos;
   float ypos;
@@ -294,6 +304,7 @@ class friendlyUnit{
   float mx;
   float my;
   int health;
+  int attack=-1;
   boolean alive;
   boolean isSelected;
   friendlyUnit(float x,float y,float xs,float ys, boolean a){
@@ -359,7 +370,26 @@ class friendlyUnit{
   }
   void setmy(float positiony){
     my=positiony;
+  }
+  int getAttack(){
+    return attack;
+  }
+  void setAttack(int x){
+    attack=x;
   }  
+  void attackenemy(enemyUnit e){
+    int damage=0;
+    ArrayList<friendlyUnit>friendnear = new ArrayList<friendlyUnit>();
+    for (int i=0; i< friendlies.size(); i++){
+      if (checkCollision(friendlies.get(i),e)){
+        friendnear.add(friendlies.get(i));
+      }
+    }
+    for (int j=0; j<friendnear.size();j++){
+      damage=damage+friendnear.get(j).getAttack(); 
+    }
+    e.changeHealth(damage);
+  }
 }
 
 class enemyUnit{
@@ -370,6 +400,7 @@ class enemyUnit{
   float mx;
   float my;
   int health;
+  int attack=-1;
   boolean alive;
   enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
@@ -430,6 +461,29 @@ class enemyUnit{
   }
   void setAlive(boolean a){
     alive = a;
+  }
+  int getAttack(){
+    return attack;
+  }
+  void setAttack(int x){
+    attack=x;
+  }  
+  void attackfriendly(friendlyUnit f){
+    int damage=0;
+    ArrayList<enemyUnit>enemynear = new ArrayList<enemyUnit>();
+    for (int i=0; i< enemies.size(); i++){
+      if (checkCollision(f,enemies.get(i))){
+        enemynear.add(enemies.get(i));
+      }
+    }
+    for (int j=0; j<enemynear.size();j++){
+      damage=damage+enemynear.get(j).getAttack(); 
+      
+    }
+    //some reason damage zero here
+    damage=-1;
+    f.changeHealth(damage);
+    print(f.getHealth());
   }
 }
 

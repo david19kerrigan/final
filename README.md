@@ -38,3 +38,9 @@ Started on combat<br>
 7Jan15<br>
 Tried to finish combat<br>
 Health above units<br>
+10 Jan 15<br>
+-seems like combat now able to do 2v1, ect, may need more testing<br>
+-BUG can only have one battle occuring, multiple battles not working<br>
+make method number near by, makes a arraylist of units<br>
+-BUG friendly health text not updating
+damage done = number near by * attack of one unit
