@@ -248,7 +248,7 @@ void draw(){
           ttime = millis();
         }
         if((millis()-ttime)>1000){
-          enemies.get(i).attackfriendly(friendlies.get(i));
+          enemies.get(i).attackfriendly(friendlies.get(j));
           //friendlies.get(j).changeHealth(enemies.get(i).getAttack());
           //enemies.get(i).changeHealth(friendlies.get(j).getAttack());
           friendlies.get(j).attackenemy(enemies.get(i));
@@ -258,7 +258,7 @@ void draw(){
       //ttime = 0; 
     }
   }
-   
+  //print(friendlies.get(0).getHealth());
   
   text("Gold: "+gold, 100, 590);
   
@@ -269,6 +269,8 @@ void draw(){
     }
     if(friendlies.get(i).getHealth()<=0){
       friendlies.get(i).setAlive(false);
+      friendlies.get(i).setX(900);
+      friendlies.get(i).setY(900);
     }
   }
   for(int i = 0; i < enemies.size(); i++){
@@ -277,9 +279,11 @@ void draw(){
     }
     if(enemies.get(i).getHealth()<=0){
        enemies.get(i).setAlive(false);
+       enemies.get(i).setX(900);
+       enemies.get(i).setY(900);
     }
   }
-  
+ 
 
 
 }
@@ -317,6 +321,12 @@ class friendlyUnit{
   }
   int getHealth(){
     return health;
+  }
+  void setX(float x){
+    xpos = x;
+  }
+  void setY(float y){
+    ypos = y;
   }
   boolean isAlive(){
     return alive;
@@ -414,6 +424,12 @@ class enemyUnit{
   boolean isAlive(){
     return alive;
   }
+  void setX(float x){
+    xpos = x;
+  }
+  void setY(float y){
+    ypos = y;
+  }
   int getHealth(){
     return health;
   }
@@ -476,14 +492,19 @@ class enemyUnit{
         enemynear.add(enemies.get(i));
       }
     }
+    for(int i = 0; i < enemynear.size(); i++){
+      print(enemynear.get(i));
+    }
     for (int j=0; j<enemynear.size();j++){
       damage=damage+enemynear.get(j).getAttack(); 
       
     }
+    print(damage);
     //some reason damage zero here
-    damage=-1;
+    //mage=-1;
+    ///int(damage);
     f.changeHealth(damage);
-    print(f.getHealth());
+    //print(f.getHealth());
   }
 }
 
