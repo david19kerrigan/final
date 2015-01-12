@@ -12,7 +12,8 @@ friendlyUnit myUnit8;
 friendlyUnit myUnit9;
 enemyUnit enemyUnit;
 PShape unit;
-
+castle myCastle;
+castle enemyCastle;
 float mx;
 float my;
 //boolean unit0=true; //indicates if unit0 seleceted to be moved
@@ -46,14 +47,14 @@ void setup(){
   friendlies.add(myUnit9 = new friendlyUnit(200,200,0,0,false));
   enemies.add(enemyUnit = new enemyUnit(400,400,0,0,true));
   enemies.add(enemyUnit = new enemyUnit(300,400,0,0,true));
-  
+  myCastle = new castle(25,575,30);
+  enemyCastle = new castle(775,525,30);
   myUnit.changeSelected(true);
   rectMode(CENTER);
   myUnit.changeSelected(true);
   stroke(0);
   fill(0);
-  rect(25,25,50,50);
-  rect(25,550,50,50);
+  
   smooth();
   a = millis();  
 
@@ -68,8 +69,8 @@ void draw(){
   stroke(0);
   fill(0);
   rect(25,25,50,50);
-  rect(25,575,50,50);
-  rect(775,525,50,50);
+  
+  
   textSize(32);
   fill(0, 102, 153);
   text("unit", 0, 550);
@@ -284,6 +285,12 @@ void draw(){
     }
   }
  
+ fill(0, 102, 153);
+ myCastle.display();
+ enemyCastle.display();
+ 
+ 
+ 
 
 
 }
@@ -401,7 +408,34 @@ class friendlyUnit{
     e.changeHealth(damage);
   }
 }
-
+class castle{
+  int health;
+  float xpos;
+  float ypos;
+  boolean alive;
+  
+  castle(float x,float y,int h){
+    xpos = x;
+    ypos = y;
+    health = h;
+  }
+  void display(){
+    rect(xpos,ypos,50,50);
+  }
+  int getHealth(){
+    return health;
+  }
+  void setHealth(int h){
+    health = h;
+  }
+  void setAlive(boolean a){
+    alive = a;
+  }
+  boolean getAlive(){
+    return alive;
+  }
+}
+    
 class enemyUnit{
   float xpos;
   float ypos;
@@ -499,7 +533,7 @@ class enemyUnit{
       damage=damage+enemynear.get(j).getAttack(); 
       
     }
-    print(damage);
+    //print(damage);
     //some reason damage zero here
     //mage=-1;
     ///int(damage);
