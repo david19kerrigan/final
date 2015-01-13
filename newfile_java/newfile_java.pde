@@ -338,7 +338,8 @@ class enemy{
     }
   }
   void moveUnits(){
-    
+    Random r = new Random();
+    enemies.get(r.nextInt(10)+1
     
 
 
