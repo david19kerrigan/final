@@ -45,8 +45,16 @@ void setup(){
   friendlies.add(myUnit7 = new friendlyUnit(200,200,0,0,false));
   friendlies.add(myUnit8 = new friendlyUnit(200,200,0,0,false));
   friendlies.add(myUnit9 = new friendlyUnit(200,200,0,0,false));
-  enemies.add(enemyUnit = new enemyUnit(400,400,0,0,true));
-  enemies.add(enemyUnit = new enemyUnit(300,400,0,0,true));
+  enemies.add(enemyUnit = new enemyUnit(500,500,0,0,true));
+  enemies.add(enemyUnit1 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit2 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit3 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit4 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit5 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit6 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit7 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit8 = new enemyUnit(500,500,0,0,false));
+  enemies.add(enemyUnit9 = new enemyUnit(500,500,0,0,false));
   myCastle = new castle(25,575,30);
   enemyCastle = new castle(775,525,30);
   myUnit.changeSelected(true);
@@ -288,15 +296,54 @@ void draw(){
  fill(0, 102, 153);
  myCastle.display();
  enemyCastle.display();
- 
- 
- 
-
+ for(int i = 0; i < friendlies.size(); i++){
+   if(Math.abs(friendlies.get(i).getX()-enemyCastle.getX()) < 61 && Math.abs(friendlies.get(i).getY()-enemyCastle.getY()) < 61){
+     if(ttime == 0){
+          ttime = millis();
+     }
+     if((millis()-ttime)>1000){
+       enemyCastle.changeHealth(1);
+       ttime = 0;
+     }
+   }    
+ }
+ for(int i = 0; i < enemies.size(); i++){
+   if(Math.abs(enemies.get(i).getX()-myCastle.getX()) < 61 && Math.abs(enemies.get(i).getY()-myCastle.getY()) < 61){
+     if(ttime == 0){
+          ttime = millis();
+     }
+     if((millis()-ttime)>1000){
+       myCastle.changeHealth(1);
+       ttime = 0;
+     }
+   }    
+ }
+ text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
+     
+ text("Health "+myCastle.getHealth(),10,65);
+  
 
 }
 
+
+class enemy{
+  int gold;
+  void createUnits(){
+    if(enemies.size() < 10){
+      for(int i = 0; i < enemies.size(); i++){
+        if(enemies.get(i).getAlive()==false){
+          enemies.get(i).getAlive() = true;
+        }
+      }
+    }
+  }
+  void moveUnits(){
+    
+    
+
+
 boolean checkCollision(friendlyUnit f, enemyUnit e){
-  if(Math.abs(f.getX()-e.getX()) < 11 && Math.abs(f.getY()-e.getY()) < 121){
+  if(Math.abs(f.getX()-e.getX()) < 31 && Math.abs(f.getY()-e.getY()) < 31){
     return true;
   }
   else{
@@ -419,14 +466,23 @@ class castle{
     ypos = y;
     health = h;
   }
+  float getX(){  
+    return xpos;
+  }
+  float getY(){
+    return ypos;
+  }  
   void display(){
-    rect(xpos,ypos,50,50);
+    if(health >= 0){
+      
+      rect(xpos,ypos,50,50);
+    }  
   }
   int getHealth(){
     return health;
   }
-  void setHealth(int h){
-    health = h;
+  void changeHealth(int h){
+    health = health - h;
   }
   void setAlive(boolean a){
     alive = a;
@@ -446,6 +502,7 @@ class enemyUnit{
   int health;
   int attack=-1;
   boolean alive;
+  boolean movingTo;
   enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
@@ -454,7 +511,12 @@ class enemyUnit{
     alive = a;
     health=10;
   }
-  
+  boolean getM(){
+    return movingTo;
+  }
+  void setM(boolean m){
+    movingTo = m;
+  }
   boolean isAlive(){
     return alive;
   }
