@@ -1,3 +1,4 @@
+import java.util.Random;
 //Declaring variables
 PShape square;
 friendlyUnit myUnit;
@@ -11,6 +12,15 @@ friendlyUnit myUnit7;
 friendlyUnit myUnit8;
 friendlyUnit myUnit9;
 enemyUnit enemyUnit;
+enemyUnit enemyUnit1;
+enemyUnit enemyUnit2;
+enemyUnit enemyUnit3;
+enemyUnit enemyUnit4;
+enemyUnit enemyUnit5;
+enemyUnit enemyUnit6;
+enemyUnit enemyUnit7;
+enemyUnit enemyUnit8;
+enemyUnit enemyUnit9;
 PShape unit;
 castle myCastle;
 castle enemyCastle;
@@ -242,7 +252,7 @@ void draw(){
     }
   }
   for (int i =0; i<enemies.size();i++){
-    if(enemies.get(i).isAlive()){
+    if(enemies.get(i).getAlive()){
         stroke(0);
         fill(72);
         enemies.get(i).move();
@@ -283,7 +293,7 @@ void draw(){
     }
   }
   for(int i = 0; i < enemies.size(); i++){
-    if(enemies.get(i).isAlive()){
+    if(enemies.get(i).getAlive()){
       text("Health "+enemies.get(i).getHealth(),enemies.get(i).getX(),enemies.get(i).getY()+30);
     }
     if(enemies.get(i).getHealth()<=0){
@@ -321,8 +331,6 @@ void draw(){
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
      
  text("Health "+myCastle.getHealth(),10,65);
-  
-
 }
 
 
@@ -332,15 +340,16 @@ class enemy{
     if(enemies.size() < 10){
       for(int i = 0; i < enemies.size(); i++){
         if(enemies.get(i).getAlive()==false){
-          enemies.get(i).getAlive() = true;
+          enemies.get(i).setAlive(true);
         }
       }
     }
   }
   void moveUnits(){
     Random r = new Random();
-    enemies.get(r.nextInt(10)+1
-    
+    enemies.get(r.nextInt(10)+1);
+  }
+}
 
 
 boolean checkCollision(friendlyUnit f, enemyUnit e){
@@ -518,7 +527,7 @@ class enemyUnit{
   void setM(boolean m){
     movingTo = m;
   }
-  boolean isAlive(){
+  boolean getAlive(){
     return alive;
   }
   void setX(float x){
@@ -585,23 +594,15 @@ class enemyUnit{
     int damage=0;
     ArrayList<enemyUnit>enemynear = new ArrayList<enemyUnit>();
     for (int i=0; i< enemies.size(); i++){
-      if (checkCollision(f,enemies.get(i))){
+      if (checkCollision(f,enemies.get(i))&&enemies.get(i).getAlive()){
         enemynear.add(enemies.get(i));
       }
     }
-    for(int i = 0; i < enemynear.size(); i++){
-      print(enemynear.get(i));
-    }
     for (int j=0; j<enemynear.size();j++){
       damage=damage+enemynear.get(j).getAttack(); 
-      
     }
-    //print(damage);
-    //some reason damage zero here
-    //mage=-1;
-    ///int(damage);
+    
     f.changeHealth(damage);
-    //print(f.getHealth());
   }
 }
 
