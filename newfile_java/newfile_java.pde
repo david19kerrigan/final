@@ -333,6 +333,9 @@ void draw(){
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
  text("Health "+myCastle.getHealth(),10,65);
  opponent.createUnits();
+ for(int i = 0;i < enemies.size(); i++){
+   enemies.get(i).setSpeedToMouse();
+ }
  opponent.moveUnits();
 }
 
