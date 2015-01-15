@@ -333,10 +333,11 @@ void draw(){
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
  text("Health "+myCastle.getHealth(),10,65);
  opponent.createUnits();
- for(int i = 0;i < enemies.size(); i++){
-   enemies.get(i).setSpeedToMouse();
- }
+ 
  opponent.moveUnits();
+ for (int i=0;i<enemies.size();i++){
+   println("enemy"+i+"alive"+enemies.get(i).getAlive());
+ }
 }
 
 
@@ -353,7 +354,7 @@ class enemy{
   }
   void moveUnits(){
     Random r = new Random();
-    int i = r.nextInt(9)+1;
+    int i = r.nextInt(10);
     enemies.get(i).setmx(friendlies.get(i).getX());
     enemies.get(i).setmy(friendlies.get(i).getY());
     enemies.get(i).setSpeedToMouse();
