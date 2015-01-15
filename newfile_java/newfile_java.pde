@@ -1,6 +1,7 @@
 import java.util.Random;
 //Declaring variables
 PShape square;
+enemy opponent;
 friendlyUnit myUnit;
 friendlyUnit myUnit1;
 friendlyUnit myUnit2;
@@ -45,6 +46,7 @@ ArrayList<enemyUnit> enemies = new ArrayList<enemyUnit>();
 //This gets run once at the beginning of the program
 void setup(){
   size(800,600,P2D);
+  opponent = new enemy();
   friendlies.add(myUnit = new friendlyUnit(200,200,0,0,true)); 
   friendlies.add(myUnit1 = new friendlyUnit(200,200,0,0,false));
   friendlies.add(myUnit2 = new friendlyUnit(200,200,0,0,false));
@@ -329,15 +331,16 @@ void draw(){
    }    
  }
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
-     
  text("Health "+myCastle.getHealth(),10,65);
+ opponent.createUnits();
+ opponent.moveUnits();
 }
 
 
 class enemy{
   int gold;
   void createUnits(){
-    if(enemies.size() < 10){
+    if(enemies.size() < 11){
       for(int i = 0; i < enemies.size(); i++){
         if(enemies.get(i).getAlive()==false){
           enemies.get(i).setAlive(true);
@@ -347,7 +350,10 @@ class enemy{
   }
   void moveUnits(){
     Random r = new Random();
-    enemies.get(r.nextInt(10)+1);
+    int i = r.nextInt(9)+1;
+    enemies.get(i).setmx(friendlies.get(i).getX());
+    enemies.get(i).setmy(friendlies.get(i).getY());
+    enemies.get(i).setSpeedToMouse();
   }
 }
 
@@ -543,7 +549,10 @@ class enemyUnit{
     xpos = xpos + xspeed;
     ypos = ypos + yspeed;
   }
-  
+  void setSpeedToMouse(){
+    this.setXSpeed((this.getmx()-this.getX())/100);
+    this.setYSpeed((this.getmy()-this.getY())/100);
+  }
   void display(){
     ellipse(xpos,ypos,16,16);
   }
@@ -565,7 +574,7 @@ class enemyUnit{
   float getmx(){
     return mx;
   }
-  float getyx(){
+  float getmy(){
     return my;
   }
   void setXSpeed(float speed){
@@ -575,10 +584,10 @@ class enemyUnit{
   void setYSpeed(float speed2){
     yspeed = speed2;
   }
-  void setmx(int positionx){
+  void setmx(float positionx){
     mx=positionx;
   }
-  void setmy(int positiony){
+  void setmy(float positiony){
     my=positiony;
   }
   void setAlive(boolean a){
