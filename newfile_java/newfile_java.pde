@@ -608,6 +608,7 @@ class enemyUnit{
     for (int i=0; i< enemies.size(); i++){
       if (checkCollision(f,enemies.get(i))&&enemies.get(i).getAlive()){
         enemynear.add(enemies.get(i));
+        line(this.getX(), this.getY(), f.getX(), f.getY());
       }
     }
     for (int j=0; j<enemynear.size();j++){
