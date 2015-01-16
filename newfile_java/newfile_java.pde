@@ -205,9 +205,14 @@ void draw(){
      if(friendlies.get(i).isSelected()){
        friendlies.get(i).setmx(mouseX);
        friendlies.get(i).setmy(mouseY);
+  
        
-       friendlies.get(i).setXSpeed((friendlies.get(i).getmx()-friendlies.get(i).getX())/100);
-       friendlies.get(i).setYSpeed((friendlies.get(i).getmy()-friendlies.get(i).getY())/100);
+       PVector dir = new PVector(friendlies.get(i).getmx() - friendlies.get(i).getX(), friendlies.get(i).getmy() - friendlies.get(i).getY());
+       dir.normalize();
+       friendlies.get(i).setXSpeed(dir.x * 2);
+       friendlies.get(i).setYSpeed(dir.y * 2);
+       //friendlies.get(i).setXSpeed((friendlies.get(i).getmx()-friendlies.get(i).getX())/100);
+       //friendlies.get(i).setYSpeed((friendlies.get(i).getmy()-friendlies.get(i).getY())/100);
       
       }
     
@@ -313,7 +318,9 @@ void draw(){
      if(ttime == 0){
           ttime = millis();
      }
-     if((millis()-ttime)>1000){
+     print(":"+millis()+":"+"-"+ttime+"-");
+     if((millis()-ttime)>700){
+       print("aa");
        enemyCastle.changeHealth(1);
        ttime = 0;
      }
@@ -338,6 +345,13 @@ void draw(){
  for (int i=0;i<enemies.size();i++){
    println("enemy"+i+"alive"+enemies.get(i).getAlive());
  }
+ if(!enemyCastle.getAlive() || !myCastle.getAlive()){
+    text("GAME OVER",200,200);
+    for(int i = 0; i < 1000; i++){
+     
+    }
+    exit();
+  }
 }
 
 
@@ -474,6 +488,8 @@ class friendlyUnit{
     }
     e.changeHealth(damage);
   }
+  
+      
 }
 class castle{
   int health;
@@ -485,6 +501,7 @@ class castle{
     xpos = x;
     ypos = y;
     health = h;
+    alive = true;
   }
   float getX(){  
     return xpos;
@@ -497,6 +514,7 @@ class castle{
       
       rect(xpos,ypos,50,50);
     }  
+    else{alive = false;}
   }
   int getHealth(){
     return health;
