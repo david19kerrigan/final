@@ -318,9 +318,9 @@ void draw(){
      if(ttime == 0){
           ttime = millis();
      }
-     print(":"+millis()+":"+"-"+ttime+"-");
+     
      if((millis()-ttime)>700){
-       print("aa");
+       
        enemyCastle.changeHealth(1);
        ttime = 0;
      }
@@ -339,8 +339,15 @@ void draw(){
  }
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
  text("Health "+myCastle.getHealth(),10,65);
- opponent.createUnits();
- 
+ print(ttime);
+ if(ttime == 0){
+   ttime = millis();
+ }
+ if((millis()-ttime)>1000){
+   print("aaaa");
+   opponent.createUnits();
+   ttime =0;
+ }
  opponent.moveUnits();
  for (int i=0;i<enemies.size();i++){
    println("enemy"+i+"alive"+enemies.get(i).getAlive());
@@ -359,9 +366,14 @@ class enemy{
   int gold;
   void createUnits(){
     if(enemies.size() < 11){
+      boolean d = false;
       for(int i = 0; i < enemies.size(); i++){
-        if(enemies.get(i).getAlive()==false){
-          enemies.get(i).setAlive(true);
+        if(d==false){
+          if(enemies.get(i).getAlive()==false){
+            enemies.get(i).setAlive(true);
+            d=true;
+          
+          }
         }
       }
     }
