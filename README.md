@@ -48,3 +48,17 @@ damage done = number near by * attack of one unit<br>
 12 Jan 15<br>
 -fixed a combat error<br>
 -multiple battles bug still exists<br>
+13Jan15<br>
+Working more on combat<br>
+14Jan15<br>
+Tried to fix constant speed issue<br>
+started working on bases<br>
+15Jan15<br>
+Got the ai started <br>
+You can attack the enemy base<br>
+Implement constant speed<br>
+16Jan15<br>
+Ai attacks units<br>
+Ai creates units<br>
+17Jan15<br>
+Fixing up the ai<br>
