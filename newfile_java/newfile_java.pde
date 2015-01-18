@@ -383,10 +383,10 @@ class enemy{
     int t = b.nextInt(2);
     Random r = new Random();
     int i = r.nextInt(10);
-    if(t==0){
+    if(t==0 && enemies.get(i).getOption()==-1){
       enemies.get(i).setOption(0);
     }
-    if(t==1){
+    if(t==1 && enemies.get(i).getOption()==-1){
       enemies.get(i).setOption(1);
     }
     
@@ -396,13 +396,13 @@ class enemy{
       enemies.get(i).setmx(friendlies.get(i).getX());
       enemies.get(i).setmy(friendlies.get(i).getY());
       enemies.get(i).setSpeedToMouse();
-      enemies.get(i).setOption(0);
+      
     }
     if(enemies.get(i).getOption()==1){
       enemies.get(i).setmx(myCastle.getX());
       enemies.get(i).setmy(myCastle.getY()-10);
       enemies.get(i).setSpeedToMouse();
-      enemies.get(i).setOption(1);
+      
     }
     
     println("x "+enemies.get(i).getmx());
@@ -578,7 +578,7 @@ class enemyUnit{
   int attack=-1;
   boolean alive;
   boolean moving = false;
-  int option;
+  int option = -1;
   enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
