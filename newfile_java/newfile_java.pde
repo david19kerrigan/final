@@ -38,6 +38,7 @@ boolean cGold;
 int a;
 ArrayList<friendlyUnit> friendlies = new ArrayList<friendlyUnit>();
 ArrayList<enemyUnit> enemies = new ArrayList<enemyUnit>();
+ArrayList<friendlyUnit> friendlyAlive = new ArrayList<friendlyUnit>();
 //ArrayList<friendlyUnit> friendnear; 
 //ArrayList<friendlyUnit> nearbyfriend = new ArrayList<friendlyUnit>();
 //ArrayList<enemyUnit> nearbyenemy = new ArrayList<enemyUnit>();
@@ -381,10 +382,16 @@ class enemy{
   void moveUnits(){
     Random b = new Random();
     int t = b.nextInt(2);
-    Random r = new Random();
-    int i = r.nextInt(10);
+    Random r0 = new Random();
+    Random r1 = new Random();
+    int i = r0.nextInt(10);
+    maintainAliveF();
+    int x = r1.nextInt(friendlyAlive.size());
+    
+    
     if(t==0 && enemies.get(i).getOption()==-1){
       enemies.get(i).setOption(0);
+      enemies.get(i).setTarget(friendlyAlive.get(x)); 
     }
     if(t==1 && enemies.get(i).getOption()==-1){
       enemies.get(i).setOption(1);
@@ -393,14 +400,14 @@ class enemy{
     if(enemies.get(i).getOption() ==0){
       
       
-      enemies.get(i).setmx(friendlies.get(i).getX());
-      enemies.get(i).setmy(friendlies.get(i).getY());
+      enemies.get(i).setmx(enemies.get(i).getTarget().getX());
+      enemies.get(i).setmy(enemies.get(i).getTarget().getY());
       enemies.get(i).setSpeedToMouse();
       
     }
     if(enemies.get(i).getOption()==1){
       enemies.get(i).setmx(myCastle.getX());
-      enemies.get(i).setmy(myCastle.getY()-10);
+      enemies.get(i).setmy(10);
       enemies.get(i).setSpeedToMouse();
       
     }
@@ -412,6 +419,24 @@ class enemy{
   
   }
 
+int fUnitsAlive(){
+  int count = 0;
+  for(int i = 0; i< friendlies.size(); i++){
+    if(friendlies.get(i).isAlive()){
+      count+=1;
+    }
+  
+  }
+  return count;
+}
+void maintainAliveF(){
+  friendlyAlive.clear();
+  for(int i = 0; i < friendlies.size(); i++){
+    if(friendlies.get(i).isAlive()){
+      friendlyAlive.add(friendlies.get(i));
+    }
+  }
+}
 
 boolean checkCollision(friendlyUnit f, enemyUnit e){
   if(Math.abs(f.getX()-e.getX()) < 31 && Math.abs(f.getY()-e.getY()) < 31){
@@ -574,11 +599,18 @@ class enemyUnit{
   float yspeed;
   float mx;
   float my;
+  friendlyUnit target;
   int health;
   int attack=-1;
   boolean alive;
   boolean moving = false;
   int option = -1;
+  void setTarget(friendlyUnit f){
+    target = f;
+  }
+  friendlyUnit getTarget(){
+    return target;
+  }
   enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
