@@ -580,12 +580,12 @@ class enemyUnit{
   boolean getM(){
     return moving;
   }
-  boolean setM(boolean m){
+  void setM(boolean m){
     moving = m;
   }
-  void setM(boolean m){
-    movingTo = m;
-  }
+  //void setM(boolean m){
+    //movingTo = m;
+  //}
   boolean getAlive(){
     return alive;
   }
