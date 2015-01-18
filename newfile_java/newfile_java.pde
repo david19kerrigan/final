@@ -383,26 +383,35 @@ class enemy{
     int t = b.nextInt(2);
     Random r = new Random();
     int i = r.nextInt(10);
-    print(t);
-    if(!enemies.get(i).getM()){
-      if(t==0){
+    if(t==0){
+      enemies.get(i).setOption(0);
+    }
+    if(t==1){
+      enemies.get(i).setOption(1);
+    }
+    
+    if(enemies.get(i).getOption() ==0){
       
       
-        enemies.get(i).setmx(friendlies.get(i).getX());
-        enemies.get(i).setmy(friendlies.get(i).getY());
-        enemies.get(i).setSpeedToMouse();
-      }
-      if(t==1){
-        enemies.get(i).setmx(myCastle.getX());
-        enemies.get(i).setmy(myCastle.getY()-10);
-        enemies.get(i).setSpeedToMouse();
-      }
-      enemies.get(i).setM(true);
+      enemies.get(i).setmx(friendlies.get(i).getX());
+      enemies.get(i).setmy(friendlies.get(i).getY());
+      enemies.get(i).setSpeedToMouse();
+      enemies.get(i).setOption(0);
+    }
+    if(enemies.get(i).getOption()==1){
+      enemies.get(i).setmx(myCastle.getX());
+      enemies.get(i).setmy(myCastle.getY()-10);
+      enemies.get(i).setSpeedToMouse();
+      enemies.get(i).setOption(1);
+    }
+    
+    println("x "+enemies.get(i).getmx());
+    println("y "+enemies.get(i).getmy());
     }
   
   
   }
-}
+
 
 boolean checkCollision(friendlyUnit f, enemyUnit e){
   if(Math.abs(f.getX()-e.getX()) < 31 && Math.abs(f.getY()-e.getY()) < 31){
@@ -568,7 +577,8 @@ class enemyUnit{
   int health;
   int attack=-1;
   boolean alive;
-  boolean moving;
+  boolean moving = false;
+  int option;
   enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
@@ -579,6 +589,12 @@ class enemyUnit{
   }
   boolean getM(){
     return moving;
+  }
+  int getOption(){
+    return option;
+  }
+  void setOption(int o){
+    option = o;
   }
   void setM(boolean m){
     moving = m;
