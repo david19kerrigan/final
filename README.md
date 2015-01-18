@@ -62,3 +62,8 @@ Ai attacks units<br>
 Ai creates units<br>
 17Jan15<br>
 Fixing up the ai<br>
+18 Jan 15<br>
+-fixed position of friendlycastle<br>
+-gave units method to attack castle like attacking a unit<br>
+-must fix multiple battle error<br>
+-error when all friendly units die<br>

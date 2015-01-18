@@ -68,7 +68,7 @@ void setup(){
   enemies.add(enemyUnit7 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit8 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit9 = new enemyUnit(500,500,0,0,false));
-  myCastle = new castle(25,575,30);
+  myCastle = new castle(25,25,30);
   enemyCastle = new castle(775,525,30);
   myUnit.changeSelected(true);
   rectMode(CENTER);
@@ -89,7 +89,7 @@ void draw(){
   background(255);
   stroke(0);
   fill(0);
-  rect(25,25,50,50);
+  rect(25,575,50,50);
   
   
   textSize(32);
@@ -322,7 +322,7 @@ void draw(){
      
      if((millis()-ttime)>700){
        
-       enemyCastle.changeHealth(1);
+       friendlies.get(i).attackcastle(enemyCastle);
        ttime = 0;
      }
    }    
@@ -333,7 +333,7 @@ void draw(){
           ttime = millis();
      }
      if((millis()-ttime)>1000){
-       myCastle.changeHealth(1);
+       enemies.get(i).attackcastle(myCastle);
        ttime = 0;
      }
    }    
@@ -550,6 +550,19 @@ class friendlyUnit{
     }
     e.changeHealth(damage);
   }
+  void attackcastle(castle e){
+    int damage=0;
+    ArrayList<friendlyUnit>friendnear = new ArrayList<friendlyUnit>();
+    for (int i=0; i< friendlies.size(); i++){
+      if(Math.abs(friendlies.get(i).getX()-e.getX()) < 61 && Math.abs(friendlies.get(i).getY()-e.getY()) < 61){
+        friendnear.add(friendlies.get(i));
+      }
+    }
+    for (int j=0; j<friendnear.size();j++){
+      damage=damage+friendnear.get(j).getAttack(); 
+    }
+    e.changeHealth(damage);
+  }
   
       
 }
@@ -582,7 +595,7 @@ class castle{
     return health;
   }
   void changeHealth(int h){
-    health = health - h;
+    health = health + h;
   }
   void setAlive(boolean a){
     alive = a;
@@ -705,6 +718,22 @@ class enemyUnit{
     ArrayList<enemyUnit>enemynear = new ArrayList<enemyUnit>();
     for (int i=0; i< enemies.size(); i++){
       if (checkCollision(f,enemies.get(i))&&enemies.get(i).getAlive()){
+        enemynear.add(enemies.get(i));
+        line(this.getX(), this.getY(), f.getX(), f.getY());
+      }
+    }
+    for (int j=0; j<enemynear.size();j++){
+      damage=damage+enemynear.get(j).getAttack(); 
+    }
+    
+    f.changeHealth(damage);
+  
+  }
+  void attackcastle(castle f){
+    int damage=0;
+    ArrayList<enemyUnit>enemynear = new ArrayList<enemyUnit>();
+    for (int i=0; i< enemies.size(); i++){
+      if(Math.abs(enemies.get(i).getX()-f.getX()) < 61 && Math.abs(enemies.get(i).getY()-f.getY()) < 61){
         enemynear.add(enemies.get(i));
         line(this.getX(), this.getY(), f.getX(), f.getY());
       }
