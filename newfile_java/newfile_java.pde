@@ -339,18 +339,18 @@ void draw(){
  }
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
  text("Health "+myCastle.getHealth(),10,65);
- print(ttime);
+ 
  if(ttime == 0){
    ttime = millis();
  }
  if((millis()-ttime)>1000){
-   print("aaaa");
+   
    opponent.createUnits();
    ttime =0;
  }
  opponent.moveUnits();
  for (int i=0;i<enemies.size();i++){
-   println("enemy"+i+"alive"+enemies.get(i).getAlive());
+   
  }
  if(!enemyCastle.getAlive() || !myCastle.getAlive()){
     text("GAME OVER",200,200);
@@ -379,14 +379,30 @@ class enemy{
     }
   }
   void moveUnits(){
+    Random b = new Random();
+    int t = b.nextInt(2);
     Random r = new Random();
     int i = r.nextInt(10);
-    enemies.get(i).setmx(friendlies.get(i).getX());
-    enemies.get(i).setmy(friendlies.get(i).getY());
-    enemies.get(i).setSpeedToMouse();
+    print(t);
+    if(!enemies.get(i).getM()){
+      if(t==0){
+      
+      
+        enemies.get(i).setmx(friendlies.get(i).getX());
+        enemies.get(i).setmy(friendlies.get(i).getY());
+        enemies.get(i).setSpeedToMouse();
+      }
+      if(t==1){
+        enemies.get(i).setmx(myCastle.getX());
+        enemies.get(i).setmy(myCastle.getY()-10);
+        enemies.get(i).setSpeedToMouse();
+      }
+      enemies.get(i).setM(true);
+    }
+  
+  
   }
 }
-
 
 boolean checkCollision(friendlyUnit f, enemyUnit e){
   if(Math.abs(f.getX()-e.getX()) < 31 && Math.abs(f.getY()-e.getY()) < 31){
@@ -552,7 +568,7 @@ class enemyUnit{
   int health;
   int attack=-1;
   boolean alive;
-  boolean movingTo;
+  boolean moving;
   enemyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
@@ -562,7 +578,10 @@ class enemyUnit{
     health=10;
   }
   boolean getM(){
-    return movingTo;
+    return moving;
+  }
+  boolean setM(boolean m){
+    moving = m;
   }
   void setM(boolean m){
     movingTo = m;
@@ -647,6 +666,7 @@ class enemyUnit{
     }
     
     f.changeHealth(damage);
+  
   }
 }
 
