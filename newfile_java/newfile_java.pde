@@ -389,10 +389,10 @@ class enemy{
     Random r1 = new Random();
     int i = r0.nextInt(10);
     maintainAliveF();
-    int x = r1.nextInt(friendlyAlive.size());
     
     
-    if(t==0 && enemies.get(i).getOption()==-1){
+    if(t==0 && enemies.get(i).getOption()==-1 && friendlyAlive.size()>0){
+      int x = r1.nextInt(friendlyAlive.size());
       enemies.get(i).setOption(0);
       enemies.get(i).setTarget(friendlyAlive.get(x)); 
     }
