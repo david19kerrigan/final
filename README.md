@@ -68,3 +68,9 @@ Fixing up the ai<br>
 -must fix multiple battle error<br>
 -error when all friendly units die<br>
 -improved game concept, only able to attack if still <br>
+*<ul>Things to Do</ul>*<br>
+-fix multiple battles. while units fight, others cant fight base<br>
+-fix position of units so they dont go behind base <br>
+-fix speed of enemy units <br>
+-fix enemy ai so that goes after other friendly unit<br>
+=make enemy spawn slower<br>
