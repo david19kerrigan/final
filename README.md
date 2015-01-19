@@ -67,3 +67,4 @@ Fixing up the ai<br>
 -gave units method to attack castle like attacking a unit<br>
 -must fix multiple battle error<br>
 -error when all friendly units die<br>
+-improved game concept, only able to attack if still <br>
