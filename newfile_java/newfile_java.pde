@@ -421,10 +421,10 @@ class enemy{
     
     println("x "+enemies.get(i).getmx());
     println("y "+enemies.get(i).getmy());
-    }
-  
-  
   }
+  
+  
+}
 
 int fUnitsAlive(){
   int count = 0;
