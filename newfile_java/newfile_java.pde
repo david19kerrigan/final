@@ -32,8 +32,9 @@ float my;
 int time = 0;
 int wait = 1000;
 int ttime = 0;
+int atime = 0;
 boolean timer;
-int gold = 15;
+int gold = 10;
 boolean cGold;
 int a;
 ArrayList<friendlyUnit> friendlies = new ArrayList<friendlyUnit>();
@@ -241,6 +242,9 @@ void draw(){
         for(int i=0; i<friendlies.size(); i++){
            if(!friendlies.get(i).isAlive()){
              friendlies.get(i).setAlive(true);
+             friendlies.get(i).setHealth(10);
+             friendlies.get(i).setX(200);
+             friendlies.get(i).setY(200);
              break;
          }
          //break;
@@ -344,13 +348,13 @@ void draw(){
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
  text("Health "+myCastle.getHealth(),10,65);
  
- if(ttime == 0){
-   ttime = millis();
+ if(atime == 0){
+   atime = millis();
  }
- if((millis()-ttime)>5000){
+ if((millis()-atime)>5000){
    
    opponent.createUnits();
-   ttime =0;
+   atime =0;
  }
  opponent.moveUnits();
  for (int i=0;i<enemies.size();i++){
@@ -369,12 +373,16 @@ void draw(){
 class enemy{
   int gold;
   void createUnits(){
+    this.gold-=1;
     if(enemies.size() < 11){
       boolean d = false;
       for(int i = 0; i < enemies.size(); i++){
         if(d==false){
           if(enemies.get(i).getAlive()==false){
             enemies.get(i).setAlive(true);
+            enemies.get(i).setHealth(10);
+            enemies.get(i).setX(900);
+            enemies.get(i).setY(900);
             d=true;
           
           }
@@ -401,8 +409,11 @@ class enemy{
     }
     
     if(enemies.get(i).getOption() ==0){
-      
-      
+    
+   
+    
+    
+    
       enemies.get(i).setmx(enemies.get(i).getTarget().getX());
       enemies.get(i).setmy(enemies.get(i).getTarget().getY());
       enemies.get(i).setSpeedToMouse();
@@ -410,6 +421,10 @@ class enemy{
         enemies.get(i).setXSpeed(0);
         enemies.get(i).setYSpeed(0);
       }
+      if(enemies.get(i).getTarget().getHealth()==0){
+        enemies.get(i).setOption(-1);
+      }
+      
       
     }
     if(enemies.get(i).getOption()==1){
@@ -478,6 +493,9 @@ class friendlyUnit{
   }
   int getHealth(){
     return health;
+  }
+  void setHealth(int h){
+    health = h;
   }
   void setX(float x){
     xpos = x;
@@ -666,13 +684,19 @@ class enemyUnit{
   int getHealth(){
     return health;
   }
+  void setHealth(int h){
+    health = h;
+  }
   void move(){
     xpos = xpos + xspeed;
     ypos = ypos + yspeed;
   }
   void setSpeedToMouse(){
-    this.setXSpeed((this.getmx()-this.getX())/100);
-    this.setYSpeed((this.getmy()-this.getY())/100);
+   
+    PVector di = new PVector(this.getmx() - this.getX(), this.getmy() - this.getY());
+    di.normalize();
+    this.setXSpeed(di.x * 2);
+    this.setYSpeed(di.y * 2);
   }
   void display(){
     ellipse(xpos,ypos,16,16);
