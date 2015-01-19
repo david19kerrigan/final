@@ -347,7 +347,7 @@ void draw(){
  if(ttime == 0){
    ttime = millis();
  }
- if((millis()-ttime)>1000){
+ if((millis()-ttime)>5000){
    
    opponent.createUnits();
    ttime =0;
@@ -413,8 +413,8 @@ class enemy{
       
     }
     if(enemies.get(i).getOption()==1){
-      enemies.get(i).setmx(myCastle.getX());
-      enemies.get(i).setmy(10);
+      enemies.get(i).setmx(myCastle.getX()+35);
+      enemies.get(i).setmy(50);
       enemies.get(i).setSpeedToMouse();
       
     }
