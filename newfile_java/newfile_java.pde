@@ -275,10 +275,13 @@ void draw(){
           ttime = millis();
         }
         if((millis()-ttime)>1000){
-          enemies.get(i).attackfriendly(friendlies.get(j));
+          if(enemies.get(i).getXSpeed()==0 && enemies.get(i).getYSpeed()==0){
+          enemies.get(i).attackfriendly(friendlies.get(j));}
           //friendlies.get(j).changeHealth(enemies.get(i).getAttack());
           //enemies.get(i).changeHealth(friendlies.get(j).getAttack());
+          if(friendlies.get(j).getXSpeed()==0 && friendlies.get(j).getYSpeed()==0){
           friendlies.get(j).attackenemy(enemies.get(i));
+          }
           ttime=0;
         }
       }
@@ -403,6 +406,10 @@ class enemy{
       enemies.get(i).setmx(enemies.get(i).getTarget().getX());
       enemies.get(i).setmy(enemies.get(i).getTarget().getY());
       enemies.get(i).setSpeedToMouse();
+      if(Math.abs(enemies.get(i).getX()-enemies.get(i).getmx())<21 && Math.abs(enemies.get(i).getY()-enemies.get(i).getmy())<21){
+        enemies.get(i).setXSpeed(0);
+        enemies.get(i).setYSpeed(0);
+      }
       
     }
     if(enemies.get(i).getOption()==1){
@@ -439,7 +446,7 @@ void maintainAliveF(){
 }
 
 boolean checkCollision(friendlyUnit f, enemyUnit e){
-  if(Math.abs(f.getX()-e.getX()) < 31 && Math.abs(f.getY()-e.getY()) < 31){
+  if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
     return true;
   }
   else{
@@ -541,7 +548,7 @@ class friendlyUnit{
     int damage=0;
     ArrayList<friendlyUnit>friendnear = new ArrayList<friendlyUnit>();
     for (int i=0; i< friendlies.size(); i++){
-      if (checkCollision(friendlies.get(i),e)){
+      if ((checkCollision(friendlies.get(i),e))&& friendlies.get(i).isAlive()){
         friendnear.add(friendlies.get(i));
       }
     }
