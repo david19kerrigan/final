@@ -431,7 +431,10 @@ class enemy{
       enemies.get(i).setmx(myCastle.getX()+35);
       enemies.get(i).setmy(50);
       enemies.get(i).setSpeedToMouse();
-      
+       if(Math.abs(enemies.get(i).getX()-enemies.get(i).getmx())<30 && Math.abs(enemies.get(i).getY()-enemies.get(i).getmy())<300){
+        enemies.get(i).setXSpeed(0);
+        enemies.get(i).setYSpeed(0);
+      }
     }
     
     println("x "+enemies.get(i).getmx());
