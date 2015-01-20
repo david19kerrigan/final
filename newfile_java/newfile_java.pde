@@ -421,8 +421,10 @@ class enemy{
         enemies.get(i).setXSpeed(0);
         enemies.get(i).setYSpeed(0);
       }
-      if(enemies.get(i).getTarget().getHealth()==0){
+      if(enemies.get(i).getTarget().getHealth()<=0){
         enemies.get(i).setOption(-1);
+        enemies.get(i).setXSpeed(0);
+        enemies.get(i).setYSpeed(0);
       }
       
       
