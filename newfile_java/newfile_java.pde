@@ -311,24 +311,20 @@ void draw(){
     if(friendlies.get(i).isAlive()){
       text("Health "+friendlies.get(i).getHealth(),friendlies.get(i).getX(),friendlies.get(i).getY()+30);
     }
-    if(friendlies.get(i).getHealth()<=0 && enemies.get(i).getAlive()){
+    if(friendlies.get(i).getHealth()<=0){
       friendlies.get(i).setAlive(false);
       friendlies.get(i).setX(900);
       friendlies.get(i).setY(900);
-      opponent.setGold(1);
     }
   }
   for(int i = 0; i < enemies.size(); i++){
     if(enemies.get(i).getAlive()){
       text("Health "+enemies.get(i).getHealth(),enemies.get(i).getX(),enemies.get(i).getY()+30);
     }
-    if(enemies.get(i).getHealth()<=0 && enemies.get(i).getAlive()){
+    if(enemies.get(i).getHealth()<=0){
        enemies.get(i).setAlive(false);
        enemies.get(i).setX(900);
        enemies.get(i).setY(900);
-       println("before:"+gold);
-       gold=gold+1;
-       println(gold);
     }
   }
  
@@ -359,7 +355,7 @@ void draw(){
      }
    }    
  }
- fill(0,0,0)
+ fill(0,0,0);
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-10);
  text("Health "+myCastle.getHealth(),5,95);
  
@@ -384,6 +380,13 @@ void draw(){
   }
 }
 
+class pickup{
+  boolean alive;
+  int xpos;
+  int ypos;
+  String type;
+  pickup(int x, int y, int t){
+    
 
 class enemy{
   int gold;
@@ -454,11 +457,8 @@ class enemy{
       }
     }
     
-    //ln("x "+enemies.get(i).getmx());
-    //println("y "+enemies.get(i).getmy());
-    void setGold(int x){
-      gold=gold+x;
-    }
+    println("x "+enemies.get(i).getmx());
+    println("y "+enemies.get(i).getmy());
   }
   
   
