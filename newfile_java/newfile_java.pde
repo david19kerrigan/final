@@ -43,7 +43,10 @@ ArrayList<friendlyUnit> friendlyAlive = new ArrayList<friendlyUnit>();
 //ArrayList<friendlyUnit> friendnear; 
 //ArrayList<friendlyUnit> nearbyfriend = new ArrayList<friendlyUnit>();
 //ArrayList<enemyUnit> nearbyenemy = new ArrayList<enemyUnit>();
-
+PImage fr;
+PImage en;
+PImage ca;
+PImage back;
 
 //This gets run once at the beginning of the program
 void setup(){
@@ -69,13 +72,18 @@ void setup(){
   enemies.add(enemyUnit7 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit8 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit9 = new enemyUnit(500,500,0,0,false));
-  myCastle = new castle(25,25,30);
-  enemyCastle = new castle(775,525,30);
+  myCastle = new castle(0,0,30);
+  enemyCastle = new castle(750,525,30);
   myUnit.changeSelected(true);
   rectMode(CENTER);
   myUnit.changeSelected(true);
   stroke(0);
   fill(0);
+  
+  fr = loadImage("friendly.png");
+  en = loadImage("enemy.png");
+  ca = loadImage("castle.jpg");
+  back = loadImage("back.png");
   
   smooth();
   a = millis();  
@@ -86,16 +94,17 @@ void setup(){
 void draw(){
   noStroke();
   fill(255,10);
-  rect(0,0,width,height);
+  
   background(255);
   stroke(0);
   fill(0);
-  rect(25,575,50,50);
+  image(back,0,0);
   
   
   textSize(32);
   fill(0, 102, 153);
   text("unit", 0, 550);
+  rect(25,575,50,50);
   //Sequence for moving the vector around and creating a n
   //ew unit on clicking on the bottom left rect
   if (key=='0' && friendlies.get(0).isAlive()){
@@ -223,6 +232,7 @@ void draw(){
   }
   
   
+  
   for(int i = 0; i < friendlies.size(); i++){
     if(friendlies.get(i).isAlive()){
       if((friendlies.get(i).getX()>=friendlies.get(i).getmx()-1 && friendlies.get(i).getX()<=friendlies.get(i).getmx()+1) && (friendlies.get(i).getY()>=friendlies.get(i).getmy()-1 && friendlies.get(i).getY()<=friendlies.get(i).getmy()+1)){
@@ -345,8 +355,8 @@ void draw(){
      }
    }    
  }
- text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-35);
- text("Health "+myCastle.getHealth(),10,65);
+ text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-10);
+ text("Health "+myCastle.getHealth(),5,95);
  
  if(atime == 0){
    atime = millis();
@@ -430,8 +440,8 @@ class enemy{
       
     }
     if(enemies.get(i).getOption()==1){
-      enemies.get(i).setmx(myCastle.getX()+35);
-      enemies.get(i).setmy(50);
+      enemies.get(i).setmx(myCastle.getX()+40);
+      enemies.get(i).setmy(30);
       enemies.get(i).setSpeedToMouse();
        if(Math.abs(enemies.get(i).getX()-enemies.get(i).getmx())<21 && Math.abs(enemies.get(i).getY()-enemies.get(i).getmy())<21){
         enemies.get(i).setXSpeed(0);
@@ -521,7 +531,7 @@ class friendlyUnit{
     alive = a;
   }
   void display(){
-    ellipse(xpos,ypos,16,16);
+    image(fr,xpos,ypos);
   }
   void move(){
     xpos = xpos + xspeed;
@@ -617,7 +627,7 @@ class castle{
   void display(){
     if(health >= 0){
       
-      rect(xpos,ypos,50,50);
+      image(ca,xpos,ypos);
     }  
     else{alive = false;}
   }
@@ -704,7 +714,7 @@ class enemyUnit{
     this.setYSpeed(di.y * 2);
   }
   void display(){
-    ellipse(xpos,ypos,16,16);
+    image(en,xpos,ypos);
   }
   void changeHealth(int h){
     health = health + h;
