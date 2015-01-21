@@ -102,7 +102,7 @@ void draw(){
   
   
   textSize(32);
-  fill(0, 102, 153);
+  fill(0, 0, 0);
   text("unit", 0, 550);
   rect(25,575,50,50);
   //Sequence for moving the vector around and creating a n
@@ -303,7 +303,7 @@ void draw(){
     }
   }
   //print(friendlies.get(0).getHealth());
-  
+  fill(0,0,0);
   text("Gold: "+gold, 100, 590);
   
   textSize(14);
@@ -355,6 +355,7 @@ void draw(){
      }
    }    
  }
+ fill(0,0,0)
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-10);
  text("Health "+myCastle.getHealth(),5,95);
  
