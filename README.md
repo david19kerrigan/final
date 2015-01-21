@@ -74,3 +74,8 @@ Fixing up the ai<br>
 -fix speed of enemy units <br>
 -fix enemy ai so that goes after other friendly unit<br>
 =make enemy spawn slower<br>
+19Jan15<br>
+Fixing bugs for ai and combat<br>
+20Jan15<br>
+Fixing more bugs<br>
+Added sprites/graphics<br>
