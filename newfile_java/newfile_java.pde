@@ -311,7 +311,7 @@ void draw(){
     if(friendlies.get(i).isAlive()){
       text("Health "+friendlies.get(i).getHealth(),friendlies.get(i).getX(),friendlies.get(i).getY()+30);
     }
-    if(friendlies.get(i).getHealth()<=0){
+    if(friendlies.get(i).getHealth()<=0 && friendlies.get(i).isAlive()){
       friendlies.get(i).setAlive(false);
       friendlies.get(i).setX(900);
       friendlies.get(i).setY(900);
@@ -321,10 +321,11 @@ void draw(){
     if(enemies.get(i).getAlive()){
       text("Health "+enemies.get(i).getHealth(),enemies.get(i).getX(),enemies.get(i).getY()+30);
     }
-    if(enemies.get(i).getHealth()<=0){
+    if(enemies.get(i).getHealth()<=0 && enemies.get(i).getAlive()){
        enemies.get(i).setAlive(false);
        enemies.get(i).setX(900);
        enemies.get(i).setY(900);
+       gold=gold+1;
     }
   }
  
@@ -379,17 +380,20 @@ void draw(){
     exit();
   }
 }
-
+/*
 class pickup{
   boolean alive;
   int xpos;
   int ypos;
   String type;
   pickup(int x, int y, int t){
-    
+  */  
 
 class enemy{
   int gold;
+  void setGold(int x){
+    gold=gold+x;
+  }
   void createUnits(){
     this.gold-=1;
     if(enemies.size() < 11){
