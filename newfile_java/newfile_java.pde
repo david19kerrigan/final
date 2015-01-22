@@ -1,7 +1,9 @@
+//importing random numbers
 import java.util.Random;
 //Declaring variables
-PShape square;
-enemy opponent;
+
+enemy opponent; //the enemy ai
+//friendly units
 friendlyUnit myUnit;
 friendlyUnit myUnit1;
 friendlyUnit myUnit2;
@@ -12,6 +14,7 @@ friendlyUnit myUnit6;
 friendlyUnit myUnit7;
 friendlyUnit myUnit8;
 friendlyUnit myUnit9;
+//enemy units
 enemyUnit enemyUnit;
 enemyUnit enemyUnit1;
 enemyUnit enemyUnit2;
@@ -22,27 +25,27 @@ enemyUnit enemyUnit6;
 enemyUnit enemyUnit7;
 enemyUnit enemyUnit8;
 enemyUnit enemyUnit9;
-PShape unit;
+//castles
 castle myCastle;
 castle enemyCastle;
-float mx;
-float my;
-//boolean unit0=true; //indicates if unit0 seleceted to be moved
-//boolean unit1=false; //indicates if unit1 seleceted to be moved
+
+//variables for a timer
 int time = 0;
+int time1 = 0;
+int time2 = 0;
 int wait = 1000;
 int ttime = 0;
 int atime = 0;
 boolean timer;
-int gold = 10;
+//used in changing gold value
 boolean cGold;
 int a;
+int gold = 10;
+//araylist of friendly and enemy units and alive friendly units
 ArrayList<friendlyUnit> friendlies = new ArrayList<friendlyUnit>();
 ArrayList<enemyUnit> enemies = new ArrayList<enemyUnit>();
 ArrayList<friendlyUnit> friendlyAlive = new ArrayList<friendlyUnit>();
-//ArrayList<friendlyUnit> friendnear; 
-//ArrayList<friendlyUnit> nearbyfriend = new ArrayList<friendlyUnit>();
-//ArrayList<enemyUnit> nearbyenemy = new ArrayList<enemyUnit>();
+//sprites
 PImage fr;
 PImage en;
 PImage ca;
@@ -334,25 +337,25 @@ void draw(){
  enemyCastle.display();
  for(int i = 0; i < friendlies.size(); i++){
    if(Math.abs(friendlies.get(i).getX()-enemyCastle.getX()) < 61 && Math.abs(friendlies.get(i).getY()-enemyCastle.getY()) < 61){
-     if(ttime == 0){
-          ttime = millis();
+     if(time1 == 0){
+          time1 = millis();
      }
      
-     if((millis()-ttime)>700){
+     if(millis()-time1>700){
        
        friendlies.get(i).attackcastle(enemyCastle);
-       ttime = 0;
+       time1 = 0;
      }
    }    
  }
  for(int i = 0; i < enemies.size(); i++){
    if(Math.abs(enemies.get(i).getX()-myCastle.getX()) < 61 && Math.abs(enemies.get(i).getY()-myCastle.getY()) < 61){
-     if(ttime == 0){
-          ttime = millis();
+     if(time2 == 0){
+          time2 = millis();
      }
-     if((millis()-ttime)>1000){
+     if((millis()-time2)>1000){
        enemies.get(i).attackcastle(myCastle);
-       ttime = 0;
+       time2 = 0;
      }
    }    
  }
@@ -372,13 +375,19 @@ void draw(){
  for (int i=0;i<enemies.size();i++){
    
  }
- if(!enemyCastle.getAlive() || !myCastle.getAlive()){
-    text("GAME OVER",200,200);
-    for(int i = 0; i < 1000; i++){
+ if(!enemyCastle.getAlive()){
+    textSize(90);
+    text("YOU WIN",400,300);
+    for(int i = 0; i < 5000; i++){
      
     }
     exit();
   }
+ if(!friendlyCastle.getAlive()){
+   text("YOU LOSE",400,300);
+   for(int i = 0; i < 5000; i++){
+   }
+   exit();
 }
 /*
 class pickup{
