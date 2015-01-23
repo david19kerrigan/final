@@ -497,7 +497,42 @@ void draw(){
   }
 }
 
+void maintainAliveF(){
+  friendlyAlive.clear();
+  for(int i = 0; i < friendlies.size(); i++){
+    if(friendlies.get(i).isAlive()){
+      friendlyAlive.add(friendlies.get(i));
+    }
+  }
+}
 
+boolean checkCollision(friendlyUnit f, enemyUnit e){
+  if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+boolean checkPickupFriendly(friendlyUnit f, pickup e){
+  if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+boolean checkPickupEnemy(enemyUnit f, pickup e){
+  if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+  
     
 
 
