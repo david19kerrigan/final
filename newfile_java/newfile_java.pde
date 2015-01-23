@@ -25,6 +25,7 @@ enemyUnit enemyUnit6;
 enemyUnit enemyUnit7;
 enemyUnit enemyUnit8;
 enemyUnit enemyUnit9;
+pickup pickup0;
 //castles
 castle myCastle;
 castle enemyCastle;
@@ -50,7 +51,7 @@ PImage fr;
 PImage en;
 PImage ca;
 PImage back;
-
+PImage health;
 //This gets run once at the beginning of the program
 void setup(){
   size(800,600,P2D);
@@ -75,6 +76,7 @@ void setup(){
   enemies.add(enemyUnit7 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit8 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit9 = new enemyUnit(500,500,0,0,false));
+  pickup0 = new pickup(400,300);
   myCastle = new castle(0,0,30);
   enemyCastle = new castle(750,525,30);
   myUnit.changeSelected(true);
@@ -87,6 +89,7 @@ void setup(){
   en = loadImage("enemy.png");
   ca = loadImage("castle.jpg");
   back = loadImage("back.png");
+  health = loadImage("health.png");
   
   smooth();
   a = millis();  
@@ -383,20 +386,71 @@ void draw(){
     }
     exit();
   }
- if(!friendlyCastle.getAlive()){
+ if(!myCastle.getAlive()){
    text("YOU LOSE",400,300);
    for(int i = 0; i < 5000; i++){
    }
    exit();
+  }
+  if(!pickup0.isAlive()){
+    Random a = new Random();
+    Random b = new Random();
+    pickup0.setX(a.nextInt(801));
+    pickup0.setY(b.nextInt(601));
+    pickup0.setAlive(true);
+  }
+  for(int i = 0; i < friendlies.size(); i++){
+    if(checkPickupFriendly(friendlies.get(i),pickup0) && pickup0.isAlive()){
+      pickup0.setAlive(false);
+      friendlies.get(i).setHealth(friendlies.get(i).getHealth()+5);
+    }
+  }
+  for(int i = 0; i < enemies.size(); i++){
+    if(checkPickupEnemy(enemies.get(i),pickup0) && pickup0.isAlive()){
+      pickup0.setAlive(false);
+      enemies.get(i).setHealth(enemies.get(i).getHealth()+5);
+    }
+  }
+    
+
+  if(pickup0.isAlive()){
+    pickup0.display();
+  }
 }
-/*
+
 class pickup{
   boolean alive;
-  int xpos;
-  int ypos;
-  String type;
-  pickup(int x, int y, int t){
-  */  
+  float xpos;
+  float ypos;
+  
+  pickup(float x, float y){
+    xpos = x;
+    ypos = y;
+    alive = true;
+  }
+  void display(){
+    image(health,xpos,ypos);
+  }
+  void setX(float x){
+    xpos = x;
+  }
+  void setY(float y){
+    ypos = y;
+  }
+  float getX(){  
+    return xpos;
+  }
+  float getY(){
+    return ypos;
+  }  
+  void setAlive(boolean a){
+    alive = a;
+  }
+  boolean isAlive(){
+    return alive;
+  }
+}
+    
 
 class enemy{
   int gold;
@@ -474,6 +528,7 @@ class enemy{
     println("y "+enemies.get(i).getmy());
   }
   
+
   
 }
 
@@ -504,6 +559,25 @@ boolean checkCollision(friendlyUnit f, enemyUnit e){
     return false;
   }
 }
+
+boolean checkPickupFriendly(friendlyUnit f, pickup e){
+  if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+boolean checkPickupEnemy(enemyUnit f, pickup e){
+  if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+  
 
 
 
