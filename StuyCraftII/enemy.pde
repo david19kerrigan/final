@@ -1,10 +1,8 @@
 class enemy{
-  //enemy ai has gold
   int gold;
   void setGold(int x){
     gold=gold+x;
   }
-  //creates new units
   void createUnits(){
     this.gold-=1;
     if(enemies.size() < 11){
@@ -23,10 +21,9 @@ class enemy{
       }
     }
   }
-  //moves units, either attacks castle or a random friendly unit.
   void moveUnits(){
     Random b = new Random();
-    int t = b.nextInt(2);
+    int t = b.nextInt(5);
     Random r0 = new Random();
     Random r1 = new Random();
     int i = r0.nextInt(10);
@@ -40,6 +37,15 @@ class enemy{
     }
     if(t==1 && enemies.get(i).getOption()==-1){
       enemies.get(i).setOption(1);
+    }
+    if(t==2 && enemies.get(i).getOption()==-1){
+      enemies.get(i).setOption(2);
+    }
+    if(t==3 && enemies.get(i).getOption()==-1){
+      enemies.get(i).setOption(3);
+    }
+    if(t==4 && enemies.get(i).getOption()==-1){
+      enemies.get(i).setOption(4);
     }
     
     if(enemies.get(i).getOption() ==0){
@@ -73,6 +79,39 @@ class enemy{
         //enemies.get(i).setattackingcastle(true);
       }
     }
+    if(enemies.get(i).getOption()==2){
+     enemies.get(i).setmx(pickup0.getX());
+     enemies.get(i).setmy(pickup0.getY());
+     enemies.get(i).setSpeedToMouse();
+     if (checkPickupEnemy(enemies.get(i),pickup0)){
+      enemies.get(i).setOption(-1);
+      // enemies.get(i).setXSpeed(0);
+      //enemies.get(i).setYSpeed(0);
+      
+     } 
+    }
+    if(enemies.get(i).getOption()==3){
+     enemies.get(i).setmx(pickup1.getX());
+     enemies.get(i).setmy(pickup1.getY());
+     enemies.get(i).setSpeedToMouse();
+     if (checkPickupEnemy(enemies.get(i),pickup1)){
+      enemies.get(i).setOption(-1);
+      // enemies.get(i).setXSpeed(0);
+      //enemies.get(i).setYSpeed(0);
+      
+     } 
+    }
+    if(enemies.get(i).getOption()==4){
+     enemies.get(i).setmx(pickup2.getX());
+     enemies.get(i).setmy(pickup2.getY());
+     enemies.get(i).setSpeedToMouse();
+     if (checkPickupEnemy(enemies.get(i),pickup2)){
+      enemies.get(i).setOption(-1);
+      // enemies.get(i).setXSpeed(0);
+      //enemies.get(i).setYSpeed(0);
+      
+     } 
+    }
     
     //println("x "+enemies.get(i).getmx());
     //println("y "+enemies.get(i).getmy());
@@ -81,7 +120,7 @@ class enemy{
 
   
 }
-//array of friendly units that are alive
+
 int fUnitsAlive(){
   int count = 0;
   for(int i = 0; i< friendlies.size(); i++){
@@ -100,7 +139,7 @@ void maintainAliveF(){
     }
   }
 }
-//collision checking methods
+
 boolean checkCollision(friendlyUnit f, enemyUnit e){
   if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
     return true;
