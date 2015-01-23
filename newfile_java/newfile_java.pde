@@ -315,7 +315,11 @@ void draw(){
   textSize(14);
   for(int i = 0; i < friendlies.size(); i++){
     if(friendlies.get(i).isAlive()){
-      text("Health "+friendlies.get(i).getHealth(),friendlies.get(i).getX(),friendlies.get(i).getY()+30);
+      textSize(12);
+      fill(7,50,139);
+      text("Unit"+i,friendlies.get(i).getX()-10,friendlies.get(i).getY()-10);
+      textSize(14);
+      text("HP"+friendlies.get(i).getHealth(),friendlies.get(i).getX(),friendlies.get(i).getY()+30);
     }
     if(friendlies.get(i).getHealth()<=0 && friendlies.get(i).isAlive()){
       friendlies.get(i).setAlive(false);
@@ -325,7 +329,8 @@ void draw(){
   }
   for(int i = 0; i < enemies.size(); i++){
     if(enemies.get(i).getAlive()){
-      text("Health "+enemies.get(i).getHealth(),enemies.get(i).getX(),enemies.get(i).getY()+30);
+      fill(222,16,40);
+      text("HP "+enemies.get(i).getHealth(),enemies.get(i).getX()-10,enemies.get(i).getY()-10);
     }
     if(enemies.get(i).getHealth()<=0 && enemies.get(i).getAlive()){
        enemies.get(i).setAlive(false);
