@@ -1,3 +1,4 @@
+//pickup has an xpos and ypos, displays a sprite
 class pickup{
   boolean alive;
   float xpos;

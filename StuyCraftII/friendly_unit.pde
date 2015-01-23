@@ -1,3 +1,4 @@
+//essentially the same as enemy unit
 class friendlyUnit{
   float xpos;
   float ypos;

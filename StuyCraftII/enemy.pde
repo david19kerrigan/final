@@ -1,8 +1,10 @@
 class enemy{
+  //enemy ai has gold
   int gold;
   void setGold(int x){
     gold=gold+x;
   }
+  //creates new units
   void createUnits(){
     this.gold-=1;
     if(enemies.size() < 11){
@@ -21,6 +23,7 @@ class enemy{
       }
     }
   }
+  //moves units, either attacks castle or a random friendly unit.
   void moveUnits(){
     Random b = new Random();
     int t = b.nextInt(2);
@@ -78,7 +81,7 @@ class enemy{
 
   
 }
-
+//array of friendly units that are alive
 int fUnitsAlive(){
   int count = 0;
   for(int i = 0; i< friendlies.size(); i++){
@@ -97,7 +100,7 @@ void maintainAliveF(){
     }
   }
 }
-
+//collision checking methods
 boolean checkCollision(friendlyUnit f, enemyUnit e){
   if(Math.abs(f.getX()-e.getX()) < 21 && Math.abs(f.getY()-e.getY()) < 21){
     return true;

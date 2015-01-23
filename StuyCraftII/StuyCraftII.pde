@@ -58,7 +58,9 @@ PImage bluhealth;
 PImage ammo;
 //This gets run once at the beginning of the program
 void setup(){
+  //size of canvas
   size(800,600,P2D);
+  //adding new instances
   opponent = new enemy();
   friendlies.add(myUnit = new friendlyUnit(200,200,0,0,true)); 
   friendlies.add(myUnit1 = new friendlyUnit(200,200,0,0,false));
@@ -88,9 +90,10 @@ void setup(){
   myUnit.changeSelected(true);
   rectMode(CENTER);
   myUnit.changeSelected(true);
+  //color
   stroke(0);
   fill(0);
-  
+  //loading sprites
   fr = loadImage("friendly.png");
   en = loadImage("enemy.png");
   ca = loadImage("castle.jpg");
@@ -116,10 +119,11 @@ void draw(){
   
   textSize(32);
   fill(0, 0, 0);
+  //create unit box
   text("unit", 0, 550);
   rect(25,575,50,50);
-  //Sequence for moving the vector around and creating a n
-  //ew unit on clicking on the bottom left rect
+  //Sequence for moving the vector around and creating a new one
+  //new unit on clicking on the bottom left rect
   if (key=='0' && friendlies.get(0).isAlive()){
      //myUnit.changeSelected(true);
      //myUnit1.changeSelected(false);
@@ -215,7 +219,7 @@ void draw(){
      }
   }
   if (mousePressed){
-    
+    //unit box
     if((mouseX<=50)&&(mouseY>=550)){
       stroke(0);
       fill(175);
@@ -227,6 +231,7 @@ void draw(){
     else if(mouseY<550){
     for(int i = 0; i < friendlies.size(); i++){
      if(friendlies.get(i).isSelected()){
+       //moving around with the mouse
        friendlies.get(i).setmx(mouseX);
        friendlies.get(i).setmy(mouseY);
   
@@ -249,6 +254,7 @@ void draw(){
   for(int i = 0; i < friendlies.size(); i++){
     if(friendlies.get(i).isAlive()){
       if((friendlies.get(i).getX()>=friendlies.get(i).getmx()-1 && friendlies.get(i).getX()<=friendlies.get(i).getmx()+1) && (friendlies.get(i).getY()>=friendlies.get(i).getmy()-1 && friendlies.get(i).getY()<=friendlies.get(i).getmy()+1)){
+        //stop at target
         friendlies.get(i).setXSpeed(0);
         friendlies.get(i).setYSpeed(0);
       }
@@ -256,12 +262,12 @@ void draw(){
   }
   if ((millis() - time >= wait) && timer==true) {
     
-    
+    //lowering gold
     if (cGold == false) {
       gold = gold -1;
       cGold = true;
       if(gold>0){
-        
+        //new unit
         for(int i=0; i<friendlies.size(); i++){
            if(!friendlies.get(i).isAlive()){
              friendlies.get(i).setAlive(true);
@@ -279,7 +285,7 @@ void draw(){
   for(int i = 0; i < friendlies.size(); i++){
    
     if(friendlies.get(i).isAlive()){
-      
+      //move and display each unit
       stroke(0);
       fill(175);
       friendlies.get(i).move();
@@ -294,7 +300,7 @@ void draw(){
         enemies.get(i).display();
     }
   }
-  
+  //combat stuff
   for(int i = 0; i < enemies.size(); i++){
     for(int j = 0; j < friendlies.size(); j++){
       if(checkCollision(friendlies.get(j),enemies.get(i))){
@@ -313,13 +319,13 @@ void draw(){
           ttime=0;
         }
       }
-      //ttime = 0; 
+      
     }
   }
-  //print(friendlies.get(0).getHealth());
+  
   fill(0,0,0);
   text("Gold: "+gold, 100, 590);
-  
+  //display unit health
   textSize(14);
   for(int i = 0; i < friendlies.size(); i++){
     if(friendlies.get(i).isAlive()){
@@ -328,7 +334,7 @@ void draw(){
       text("Unit"+i,friendlies.get(i).getX()-10,friendlies.get(i).getY()-10);
       textSize(14);
       text("HP"+friendlies.get(i).getHealth(),friendlies.get(i).getX(),friendlies.get(i).getY()+30);
-    }
+    }//make sure dead units get reset
     if(friendlies.get(i).getHealth()<=0 && friendlies.get(i).isAlive()){
       friendlies.get(i).setAlive(false);
       friendlies.get(i).setX(900);
@@ -351,6 +357,7 @@ void draw(){
  fill(0, 102, 153);
  myCastle.display();
  enemyCastle.display();
+ //attacking castles
  for(int i = 0; i < friendlies.size(); i++){
    if(Math.abs(friendlies.get(i).getX()-enemyCastle.getX()) < 61 && Math.abs(friendlies.get(i).getY()-enemyCastle.getY()) < 61){
      friendlies.get(i).setattackingcastle(true);
@@ -381,7 +388,7 @@ void draw(){
       
        time2 = 0;
      }
-     //enemies.get(i).setattackingcastle(false);
+     
    }
     else{
       enemies.get(i).setattackingcastle(false);
@@ -390,7 +397,7 @@ void draw(){
  fill(0,0,0);
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-10);
  text("Health "+myCastle.getHealth(),5,95);
- 
+ //the opponent ai moves
  if(atime == 0){
    atime = millis();
  }
@@ -403,6 +410,7 @@ void draw(){
  for (int i=0;i<enemies.size();i++){
    
  }
+ //game over stuff
  if(!enemyCastle.getAlive()){
     textSize(90);
     text("YOU WIN",200,300);
@@ -418,6 +426,7 @@ void draw(){
    }
    exit();
   }
+  //spawn pickups
   if(!pickup0.isAlive()){
     Random a = new Random();
     Random b = new Random();

@@ -79,3 +79,9 @@ Fixing bugs for ai and combat<br>
 20Jan15<br>
 Fixing more bugs<br>
 Added sprites/graphics<br>
+21Jan15<br>
+Worked out combat glitches<br>
+22Jan15<br>
+Finishing up made pickups and unit number is displayed over the unit.<br>
+23Jan15<br>
+Doing comments

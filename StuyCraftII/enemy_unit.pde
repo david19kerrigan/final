@@ -1,3 +1,6 @@
+//enemy unit has xpos ypos xspeed and yspeed
+//mx and my are where it's moving to
+//also what unit is being targeted
 class enemyUnit{
   float xpos;
   float ypos;
