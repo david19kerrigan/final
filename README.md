@@ -1,5 +1,14 @@
 StuyCraft II
 =====
+
+Use 0-9 to control units, click the unit box to create a new unit.  Pickups give boosts to the player or enemy. <br>
+ 
+The objective is to destroy the enemy base.
+<br>
+
+
+
+
 Day 1 28 Dec 14 <br>
 Started the base code.<br>
 -A black rectangle in the upper left represents the player's base.<br>
@@ -83,5 +92,6 @@ Added sprites/graphics<br>
 Worked out combat glitches<br>
 22Jan15<br>
 Finishing up made pickups and unit number is displayed over the unit.<br>
+Split into different files<br>
 23Jan15<br>
-Doing comments
+Doing comments<br>
