@@ -26,6 +26,8 @@ enemyUnit enemyUnit7;
 enemyUnit enemyUnit8;
 enemyUnit enemyUnit9;
 pickup pickup0;
+pickup pickup1;
+pickup pickup2;
 //castles
 castle myCastle;
 castle enemyCastle;
@@ -52,6 +54,8 @@ PImage en;
 PImage ca;
 PImage back;
 PImage health;
+PImage bluhealth;
+PImage ammo;
 //This gets run once at the beginning of the program
 void setup(){
   size(800,600,P2D);
@@ -77,6 +81,8 @@ void setup(){
   enemies.add(enemyUnit8 = new enemyUnit(500,500,0,0,false));
   enemies.add(enemyUnit9 = new enemyUnit(500,500,0,0,false));
   pickup0 = new pickup(400,300);
+  pickup1 = new pickup(500,200);
+  pickup2 = new pickup(200,500);
   myCastle = new castle(0,0,30);
   enemyCastle = new castle(750,525,30);
   myUnit.changeSelected(true);
@@ -90,7 +96,8 @@ void setup(){
   ca = loadImage("castle.jpg");
   back = loadImage("back.png");
   health = loadImage("health.png");
-  
+  bluhealth= loadImage("bluhealth.png");
+  ammo= loadImage("ammo.png");
   smooth();
   a = millis();  
 
@@ -385,15 +392,16 @@ void draw(){
  }
  if(!enemyCastle.getAlive()){
     textSize(90);
-    text("YOU WIN",400,300);
-    for(int i = 0; i < 5000; i++){
+    text("YOU WIN",200,300);
+    for(int i = 0; i < 10000; i++){
      
     }
     exit();
   }
  if(!myCastle.getAlive()){
-   text("YOU LOSE",400,300);
-   for(int i = 0; i < 5000; i++){
+   textSize(90);
+   text("YOU LOSE",200,300);
+   for(int i = 0; i < 10000; i++){
    }
    exit();
   }
@@ -401,8 +409,22 @@ void draw(){
     Random a = new Random();
     Random b = new Random();
     pickup0.setX(a.nextInt(801));
-    pickup0.setY(b.nextInt(601));
+    pickup0.setY(b.nextInt(550));
     pickup0.setAlive(true);
+  }
+  if(!pickup1.isAlive()){
+    Random a = new Random();
+    Random b = new Random();
+    pickup1.setX(a.nextInt(801));
+    pickup1.setY(b.nextInt(550));
+    pickup1.setAlive(true);
+  }
+  if(!pickup2.isAlive()){
+    Random a = new Random();
+    Random b = new Random();
+    pickup2.setX(a.nextInt(801));
+    pickup2.setY(b.nextInt(550));
+    pickup2.setAlive(true);
   }
   for(int i = 0; i < friendlies.size(); i++){
     if(checkPickupFriendly(friendlies.get(i),pickup0) && pickup0.isAlive()){
@@ -416,10 +438,40 @@ void draw(){
       enemies.get(i).setHealth(enemies.get(i).getHealth()+5);
     }
   }
+  for(int i = 0; i < friendlies.size(); i++){
+    if(checkPickupFriendly(friendlies.get(i),pickup1) && pickup1.isAlive()){
+      pickup1.setAlive(false);
+      myCastle.changeHealth(5);
+    }
+  }
+  for(int i = 0; i < enemies.size(); i++){
+    if(checkPickupEnemy(enemies.get(i),pickup1) && pickup1.isAlive()){
+      pickup1.setAlive(false);
+      enemyCastle.changeHealth(5);
+    }
+  }
+  for(int i = 0; i < friendlies.size(); i++){
+    if(checkPickupFriendly(friendlies.get(i),pickup2) && pickup2.isAlive()){
+      pickup2.setAlive(false);
+      friendlies.get(i).changeAttack(1);
+    }
+  }
+  for(int i = 0; i < enemies.size(); i++){
+    if(checkPickupEnemy(enemies.get(i),pickup2) && pickup2.isAlive()){
+      pickup2.setAlive(false);
+      enemies.get(i).changeAttack(1);
+    }
+  }
     
 
   if(pickup0.isAlive()){
-    pickup0.display();
+    pickup0.display(health);
+  }
+  if(pickup1.isAlive()){
+    pickup1.display(bluhealth); 
+  }
+  if(pickup2.isAlive()){
+    pickup2.display(ammo); 
   }
 }
 
@@ -433,8 +485,8 @@ class pickup{
     ypos = y;
     alive = true;
   }
-  void display(){
-    image(health,xpos,ypos);
+  void display(PImage i){
+    image(i,xpos,ypos);
   }
   void setX(float x){
     xpos = x;
@@ -674,6 +726,9 @@ class friendlyUnit{
   int getAttack(){
     return attack;
   }
+  void changeAttack(int x){
+    attack=attack-x;
+  }
   void setAttack(int x){
     attack=x;
   }  
@@ -859,6 +914,9 @@ class enemyUnit{
   void setAttack(int x){
     attack=x;
   }  
+  void changeAttack(int x){
+    attack=attack-x;
+  }
   void attackfriendly(friendlyUnit f){
     int damage=0;
     ArrayList<enemyUnit>enemynear = new ArrayList<enemyUnit>();
