@@ -302,11 +302,12 @@ void draw(){
           ttime = millis();
         }
         if((millis()-ttime)>1000){
-          if(enemies.get(i).getXSpeed()==0 && enemies.get(i).getYSpeed()==0){
+          if(enemies.get(i).getXSpeed()==0 && enemies.get(i).getYSpeed()==0 && !enemies.get(i).getattackingcastle()){
           enemies.get(i).attackfriendly(friendlies.get(j));}
           //friendlies.get(j).changeHealth(enemies.get(i).getAttack());
           //enemies.get(i).changeHealth(friendlies.get(j).getAttack());
-          if(friendlies.get(j).getXSpeed()==0 && friendlies.get(j).getYSpeed()==0){
+          println(friendlies.get(j).getattackingcastle());
+          if(friendlies.get(j).getXSpeed()==0 && friendlies.get(j).getYSpeed()==0 && !friendlies.get(j).getattackingcastle()){
           friendlies.get(j).attackenemy(enemies.get(i));
           }
           ttime=0;
@@ -352,6 +353,7 @@ void draw(){
  enemyCastle.display();
  for(int i = 0; i < friendlies.size(); i++){
    if(Math.abs(friendlies.get(i).getX()-enemyCastle.getX()) < 61 && Math.abs(friendlies.get(i).getY()-enemyCastle.getY()) < 61){
+     friendlies.get(i).setattackingcastle(true);
      if(time1 == 0){
           time1 = millis();
      }
@@ -359,20 +361,31 @@ void draw(){
      if(millis()-time1>700){
        
        friendlies.get(i).attackcastle(enemyCastle);
+       
        time1 = 0;
      }
-   }    
+     //friendlies.get(i).setattackingcastle(false);
+   }
+   else{
+  friendlies.get(i).setattackingcastle(false);   
+   }
  }
  for(int i = 0; i < enemies.size(); i++){
    if(Math.abs(enemies.get(i).getX()-myCastle.getX()) < 61 && Math.abs(enemies.get(i).getY()-myCastle.getY()) < 61){
+     enemies.get(i).setattackingcastle(true);
      if(time2 == 0){
           time2 = millis();
      }
      if((millis()-time2)>1000){
        enemies.get(i).attackcastle(myCastle);
+      
        time2 = 0;
      }
-   }    
+     //enemies.get(i).setattackingcastle(false);
+   }
+    else{
+      enemies.get(i).setattackingcastle(false);
+    }
  }
  fill(0,0,0);
  text("Health "+enemyCastle.getHealth(),enemyCastle.getX()-40,enemyCastle.getY()-10);
@@ -578,11 +591,12 @@ class enemy{
        if(Math.abs(enemies.get(i).getX()-enemies.get(i).getmx())<21 && Math.abs(enemies.get(i).getY()-enemies.get(i).getmy())<21){
         enemies.get(i).setXSpeed(0);
         enemies.get(i).setYSpeed(0);
+        //enemies.get(i).setattackingcastle(true);
       }
     }
     
-    println("x "+enemies.get(i).getmx());
-    println("y "+enemies.get(i).getmy());
+    //println("x "+enemies.get(i).getmx());
+    //println("y "+enemies.get(i).getmy());
   }
   
 
@@ -650,6 +664,7 @@ class friendlyUnit{
   int attack=-1;
   boolean alive;
   boolean isSelected;
+  boolean attackingcastle = false;;
   friendlyUnit(float x,float y,float xs,float ys, boolean a){
     xpos = x;
     ypos = y;
@@ -658,6 +673,7 @@ class friendlyUnit{
     alive = a;
     health=10;
   }
+  
   int getHealth(){
     return health;
   }
@@ -758,6 +774,12 @@ class friendlyUnit{
     }
     e.changeHealth(damage);
   }
+  boolean getattackingcastle(){
+    return attackingcastle;
+  }
+  void setattackingcastle(boolean x){
+    attackingcastle=x;
+  }
   
       
 }
@@ -813,6 +835,7 @@ class enemyUnit{
   boolean alive;
   boolean moving = false;
   int option = -1;
+  boolean attackingcastle=false;
   void setTarget(friendlyUnit f){
     target = f;
   }
@@ -948,6 +971,12 @@ class enemyUnit{
     
     f.changeHealth(damage);
   
+  }
+  boolean getattackingcastle(){
+    return attackingcastle;
+  }
+  void setattackingcastle(boolean x){
+    attackingcastle=x;
   }
 }
 
