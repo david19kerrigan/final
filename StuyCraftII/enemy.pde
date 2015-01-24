@@ -84,7 +84,8 @@ class enemy{
      enemies.get(i).setmy(pickup0.getY());
      enemies.get(i).setSpeedToMouse();
      if (checkPickupEnemy(enemies.get(i),pickup0)){
-      enemies.get(i).setOption(-1);
+       
+       enemies.get(i).setOption(-1);
       // enemies.get(i).setXSpeed(0);
       //enemies.get(i).setYSpeed(0);
       
@@ -95,7 +96,8 @@ class enemy{
      enemies.get(i).setmy(pickup1.getY());
      enemies.get(i).setSpeedToMouse();
      if (checkPickupEnemy(enemies.get(i),pickup1)){
-      enemies.get(i).setOption(-1);
+       
+       enemies.get(i).setOption(-1);
       // enemies.get(i).setXSpeed(0);
       //enemies.get(i).setYSpeed(0);
       
@@ -106,7 +108,8 @@ class enemy{
      enemies.get(i).setmy(pickup2.getY());
      enemies.get(i).setSpeedToMouse();
      if (checkPickupEnemy(enemies.get(i),pickup2)){
-      enemies.get(i).setOption(-1);
+       
+       enemies.get(i).setOption(-1);
       // enemies.get(i).setXSpeed(0);
       //enemies.get(i).setYSpeed(0);
       
