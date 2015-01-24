@@ -23,19 +23,19 @@ class enemy{
   }
   void moveUnits(){
     Random b = new Random();
-    int t = b.nextInt(5);
+    int t = b.nextInt(13);
     Random r0 = new Random();
     Random r1 = new Random();
     int i = r0.nextInt(10);
     maintainAliveF();
     
     
-    if(t==0 && enemies.get(i).getOption()==-1 && friendlyAlive.size()>0){
+    if((t==0 || t==6 || t==8 || t==5 || t==11) && enemies.get(i).getOption()==-1 && friendlyAlive.size()>0){
       int x = r1.nextInt(friendlyAlive.size());
       enemies.get(i).setOption(0);
       enemies.get(i).setTarget(friendlyAlive.get(x)); 
     }
-    if(t==1 && enemies.get(i).getOption()==-1){
+    if((t==1 || t==7 || t==9 || t==10 || t==12) && enemies.get(i).getOption()==-1){
       enemies.get(i).setOption(1);
     }
     if(t==2 && enemies.get(i).getOption()==-1){

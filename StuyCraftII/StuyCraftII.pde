@@ -218,6 +218,10 @@ void draw(){
          friendlies.get(i).changeSelected(false);
      }
   }
+  //god mode
+  if (key=='g'){
+    myCastle.changeHealth(10);
+  }
   if (mousePressed){
     //unit box
     if((mouseX<=50)&&(mouseY>=550)){
